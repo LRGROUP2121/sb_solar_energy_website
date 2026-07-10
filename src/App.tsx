@@ -3,9 +3,12 @@ import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import { AboutUs } from './pages/AboutUs';
-import { Products } from './pages/Products';
-import { Contact } from './pages/Contact';
+import AboutUs from './pages/AboutUs';
+import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
+import Services from './pages/Services';
+import Solutions from './pages/Solutions';
+import Contact from './pages/Contact';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const App = () => {
@@ -19,6 +22,9 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/products/:productId" element={<ProductDetail />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/solutions" element={<Solutions />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Home />} />
           </Routes>

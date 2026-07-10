@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from './ui/Button';
 
 const NAV_LINKS = [
@@ -10,12 +11,12 @@ const NAV_LINKS = [
     name: 'Our Products', 
     path: '/products',
     dropdown: [
-      { name: 'Solar PV Module', path: '/products#pv-module' },
-      { name: 'Solar Light System', path: '/products#light-system' },
-      { name: 'Solar Water Pump', path: '/products#water-pump' },
-      { name: 'Solar Inverters', path: '/products#inverters' },
-      { name: 'Inverters & Battery', path: '/products#batteries' },
-      { name: 'Accessories', path: '/products#accessories' },
+      { name: 'Solar PV Module', path: '/products/pv-module' },
+      { name: 'Solar Light System', path: '/products/street-light' },
+      { name: 'Solar Water Pump', path: '/products/water-pump' },
+      { name: 'Solar Inverters', path: '/products/inverters' },
+      { name: 'Inverters & Battery', path: '/products/batteries' },
+      { name: 'Accessories', path: '/products/accessories' },
     ]
   },
   { name: 'Services', path: '/services' },
@@ -25,12 +26,25 @@ const NAV_LINKS = [
 
  const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 glass">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+    <nav ref={navRef} className="sticky top-0 z-50 glass">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-14 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex flex-col items-center justify-center group pt-1">
@@ -102,42 +116,90 @@ const NAV_LINKS = [
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden absolute top-full right-0 w-72 bg-white border-t border-slate-200 shadow-2xl origin-top-right rounded-bl-3xl overflow-hidden"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 max-h-[calc(100vh-4rem)] overflow-y-auto">
             {NAV_LINKS.map((link) => (
               <div key={link.name}>
-                <Link
-                  to={link.path}
-                  className={cn(
-                    "block px-4 py-3 rounded-r-md text-base font-semibold transition-all duration-200",
-                    location.pathname === link.path
-                      ? "text-primary bg-primary/10 shadow-sm border-l-4 border-primary"
-                      : "text-slate-700 hover:text-primary hover:bg-slate-50 border-l-4 border-transparent"
-                  )}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </Link>
-                {link.dropdown && (
-                  <div className="pl-4 space-y-1 mt-1">
-                    {link.dropdown.map((dropLink) => (
-                      <Link
-                        key={dropLink.name}
-                        to={dropLink.path}
-                        className="block px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-primary"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {dropLink.name}
-                      </Link>
-                    ))}
+                {link.dropdown ? (
+                  <div className={cn(
+                    "flex items-center justify-between rounded-r-md border-l-4 transition-all duration-200",
+                    location.pathname.startsWith(link.path) || activeDropdown === link.name
+                      ? "bg-primary/10 border-primary shadow-sm"
+                      : "border-transparent hover:bg-slate-50"
+                  )}>
+                    <Link
+                      to={link.path}
+                      className={cn(
+                        "block px-4 py-3 text-base font-semibold flex-1",
+                        location.pathname === link.path ? "text-primary" : "text-slate-700 hover:text-primary"
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                    <button
+                      onClick={() => setActiveDropdown(activeDropdown === link.name ? null : link.name)}
+                      className={cn(
+                        "p-3 transition-colors",
+                        activeDropdown === link.name ? "text-primary" : "text-slate-500 hover:text-primary"
+                      )}
+                    >
+                      <ChevronDown className={cn("h-5 w-5 transition-transform duration-300", activeDropdown === link.name && "rotate-180")} />
+                    </button>
                   </div>
+                ) : (
+                  <Link
+                    to={link.path}
+                    className={cn(
+                      "block px-4 py-3 rounded-r-md text-base font-semibold transition-all duration-200",
+                      location.pathname === link.path
+                        ? "text-primary bg-primary/10 shadow-sm border-l-4 border-primary"
+                        : "text-slate-700 hover:text-primary hover:bg-slate-50 border-l-4 border-transparent"
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
                 )}
+                
+                <AnimatePresence>
+                  {link.dropdown && activeDropdown === link.name && (
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4 space-y-1 mt-1 bg-slate-50/50 py-2 rounded-lg border-l-2 border-slate-100 ml-2">
+                        {link.dropdown.map((dropLink) => (
+                          <Link
+                            key={dropLink.name}
+                            to={dropLink.path}
+                            className="block px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-primary transition-colors"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {dropLink.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

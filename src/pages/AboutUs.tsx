@@ -1,59 +1,165 @@
-import { Award, Target, Users } from 'lucide-react';
+import { Award, Target, Users, Shield, Globe, Leaf } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-export const AboutUs = () => {
+const AboutUs = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Page Header */}
-      <section className="bg-slate-900 text-white py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">About Us</h1>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-            Discover our journey, mission, and the values that drive our commitment to a sustainable future.
-          </p>
+    <div className="flex flex-col min-h-screen bg-slate-50">
+      
+      {/* Hero Section */}
+      <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-slate-900/60 z-10"></div>
+          <img src="/hero2.png" alt="About SB Solar Energy" className="w-full h-full object-cover scale-105" />
+        </div>
+        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Our Journey</span>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
+              Pioneering a Brighter, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Greener Future</span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
+              Discover the mission, values, and relentless innovation driving SB Solar Energy to the forefront of renewable integration in India.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-20 bg-white">
+      {/* Stats Section */}
+      <section className="relative z-30 -mt-16 max-w-6xl mx-auto px-4 w-full">
+        <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-8 md:p-10 border border-slate-100 flex flex-wrap justify-between items-center gap-8">
+          {[
+            { value: "1,000+", label: "Happy Clients" },
+            { value: "10MW+", label: "Energy Generated" },
+            { value: "25+", label: "Years Warranty" },
+            { value: "100%", label: "Eco-Friendly" }
+          ].map((stat, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="text-center flex-1 min-w-[120px]"
+            >
+              <h3 className="text-4xl font-black text-slate-900 mb-2">{stat.value}</h3>
+              <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Who We Are Content */}
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Who We Are</h2>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                SB Solar Energy is an ISO 9001:2015 CERTIFIED Company dedicated to providing advanced solar energy and solar system solutions. Based in India, we have built a reputation for excellence in renewable energy integration.
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                Leading the Transition to <span className="text-primary">Sustainable Energy</span>
+              </h2>
+              <div className="w-20 h-1.5 bg-primary rounded-full mb-8"></div>
+              
+              <p className="text-slate-600 text-lg leading-relaxed mb-6">
+                SB Solar Energy is an <strong className="text-slate-900 font-bold">ISO 9001:2015 CERTIFIED</strong> company dedicated to engineering the most advanced solar systems in the industry. Based in the heart of India, we have built a profound reputation for integrating high-performance renewable solutions into daily life.
               </p>
-              <p className="text-slate-600 leading-relaxed mb-8">
-                Our Solar Energy Systems Are Trusted By Over 1,000 Businesses, Universities, Government Institutions, And Residential Customers. We deliver premium-quality solutions at an affordable price, ensuring long-term value and sustainability for all our clients.
+              <p className="text-slate-600 text-lg leading-relaxed mb-8">
+                From residential rooftops to massive utility-scale solar parks, our systems are trusted by over 1,000 businesses, universities, government institutions, and families. We don't just sell panels; we deliver complete energy independence at an affordable price, ensuring long-term sustainability.
               </p>
               
-              <div className="flex items-center space-x-4 bg-slate-50 p-6 rounded-xl border border-slate-100">
-                <Award className="h-12 w-12 text-primary" />
+              <div className="flex items-center space-x-6 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="h-16 w-16 bg-emerald-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <Award className="h-8 w-8 text-primary" />
+                </div>
                 <div>
-                  <h3 className="font-bold text-slate-900">ISO 9001:2015 Certified</h3>
-                  <p className="text-sm text-slate-600">Guaranteeing quality management and operational excellence.</p>
+                  <h3 className="font-bold text-lg text-slate-900">ISO 9001:2015 Certified</h3>
+                  <p className="text-sm text-slate-500 mt-1 leading-relaxed">
+                    Internationally recognized for our rigorous quality management and operational excellence across all projects.
+                  </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {[
-                { title: 'Our Mission', icon: Target, desc: 'To illuminate homes and businesses with clean, affordable, and sustainable energy solutions.' },
-                { title: 'Our Team', icon: Users, desc: 'Unlimited Support From The Industry\'s No. 1 Technical Support Team with a 10-25 Year Warranty.' }
-              ].map((item, i) => (
-                <div key={i} className="bg-white p-8 rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center">
-                  <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <item.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                  <p className="text-slate-600 leading-relaxed text-sm">{item.desc}</p>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <div className="aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden shadow-2xl border-[8px] border-white relative z-10 bg-slate-200">
+                <img src="/hero4.png" alt="Solar Team" className="w-full h-full object-cover" />
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-amber-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 z-0"></div>
+              <div className="absolute -top-6 -right-6 w-48 h-48 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-30 z-0"></div>
+              
+              {/* Floating Badge */}
+              <motion.div 
+                animate={{ y: [0, -10, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="absolute top-10 -left-10 bg-white p-5 rounded-2xl shadow-2xl border border-slate-100 z-20 items-center space-x-4 hidden md:flex"
+              >
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <Globe className="h-6 w-6 text-primary" />
                 </div>
-              ))}
-            </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Presence</p>
+                  <p className="text-lg font-black text-slate-900">Pan India</p>
+                </div>
+              </motion.div>
+            </motion.div>
 
           </div>
         </div>
       </section>
+
+      {/* Core Values Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.03]"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">The Pillars of Our Success</h2>
+            <p className="text-lg text-slate-600">These core principles guide every project we undertake, ensuring maximum satisfaction for our clients and maximum benefit for the planet.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: 'Our Mission', icon: Target, desc: 'To illuminate homes and businesses with clean, affordable, and sustainable energy solutions.' },
+              { title: 'Our Vision', icon: Leaf, desc: 'To create a carbon-neutral world powered entirely by decentralized, renewable technology.' },
+              { title: 'Unmatched Quality', icon: Shield, desc: 'We utilize exclusively Tier-1 components, delivering systems designed to last over 25 years.' },
+              { title: 'Expert Team', icon: Users, desc: 'Unlimited support from the industry\'s top technical engineers and customer care experts.' }
+            ].map((item, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:border-primary/30 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group"
+              >
+                <div className="h-16 w-16 bg-white shadow-sm rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300 border border-slate-100">
+                  <item.icon className="h-8 w-8 text-primary group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };
+
+export default AboutUs;

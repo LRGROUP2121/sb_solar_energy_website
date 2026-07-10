@@ -44,16 +44,16 @@ const FooterParticles = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800 relative overflow-hidden">
+    <footer className="bg-slate-900 text-slate-300 pt-10 md:pt-16 pb-6 md:pb-8 border-t border-slate-800 relative overflow-hidden">
       <FooterParticles />
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8 md:mb-12">
           
           {/* Brand & About */}
           <div className="space-y-4">
            <Link to="/" className="flex flex-col items-start space-y-2">
-              <img src="/sb_logo.png" alt="Logo" className="h-12 w-auto" />
-              <span className="font-bold text-2xl text-white tracking-tight leading-none">
+              <img src="/sb_logo.png" alt="Logo" className="h-10 md:h-12 w-auto" />
+              <span className="font-bold text-xl md:text-2xl text-white tracking-tight leading-none">
                 SB SOLAR <span className="text-primary">ENERGY</span>
               </span>
             </Link>
@@ -134,21 +134,21 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 mt-8 border-t border-slate-800 flex flex-col md:flex-row justify-center items-center gap-6 space-y-4 md:space-y-0 relative">
+        <div className="pt-6 md:pt-8 mt-6 md:mt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 relative text-center md:text-left">
           
           {/* Jumping Solar Animation */}
           <motion.div
             animate={{ y: [0, -15, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="absolute left-1/2 -top-6 -translate-x-1/2 text-amber-400 bg-slate-900 p-2 rounded-full border border-slate-700 shadow-[0_0_15px_rgba(251,191,36,0.15)]"
+            className="absolute left-1/2 -top-5 md:-top-6 -translate-x-1/2 text-amber-400 bg-slate-900 p-2 rounded-full border border-slate-700 shadow-[0_0_15px_rgba(251,191,36,0.15)]"
           >
-            <Sun className="h-6 w-6" />
+            <Sun className="h-5 w-5 md:h-6 md:w-6" />
           </motion.div>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-xs md:text-sm text-slate-500 mt-2 md:mt-0">
             © {new Date().getFullYear()} SB SOLAR ENERGY .in All Rights Reserved.
           </p>
-          <p className="text-sm text-slate-500">
+          <p className="text-xs md:text-sm text-slate-500">
             POWERED BY <a href="https://lrgroup.in" target="_blank" rel="noreferrer" className="text-primary hover:text-primary-hover font-bold tracking-wider transition-colors">LR GROUP</a>
           </p>
         </div>

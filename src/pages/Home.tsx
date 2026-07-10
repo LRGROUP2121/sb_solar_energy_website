@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, LayoutTemplate, Award, TrendingUp, Phone, Settings, FileText, Star, Quote } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -68,18 +68,18 @@ const HeroSlider = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-4xl text-center mx-auto"
             >
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg">
+              <h1 className="text-lg md:text-3xl lg:text-5xl font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg">
                 {HERO_SLIDES[currentSlide].title}
               </h1>
-              <p className="text-lg md:text-xl text-slate-200 mb-10 font-light drop-shadow-md">
+              <p className="text-sm md:text-lg lg:text-xl text-slate-200 mb-10 font-light drop-shadow-md">
                 {HERO_SLIDES[currentSlide].subtitle}
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Button size="lg" className="group shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+              <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
+                <Button size="sm" className="group shadow-xl shadow-primary/20 hover:scale-105 transition-transform md:h-14 md:px-8 md:text-lg sm:h-11 sm:px-6 sm:text-base">
                   Let's Start Now
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-slate-900 glass hover:scale-105 transition-transform">
+                <Button size="sm" variant="outline" className="text-white border-white hover:bg-white hover:text-slate-900 hover:scale-105 transition-transform md:h-14 md:px-8 md:text-lg sm:h-11 sm:px-6 sm:text-base bg-white/5 backdrop-blur-sm">
                   View Our Products
                 </Button>
               </div>
@@ -232,11 +232,34 @@ const AnimatedBackground = () => {
 };
 
 const FeaturesSection = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        // On desktop, scrollWidth equals clientWidth so it won't scroll.
+        // On mobile, if we reach the end, loop back to start.
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          // Scroll by roughly the width of one card (85vw)
+          scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: 'smooth' });
+        }
+      }
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="py-20 bg-slate-50 relative z-10 overflow-hidden">
+    <section className="py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
       <AnimatedBackground />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto md:px-5 lg:px-8 relative z-10">
+        <div 
+          ref={scrollRef}
+          className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory px-[7.5vw] sm:px-[20vw] md:px-0 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
           {[
             {
               title: 'Get Upto ₹ Subsidy',
@@ -254,12 +277,12 @@ const FeaturesSection = () => {
               icon: Sun
             }
           ].map((feature, i) => (
-            <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-              <div className="h-14 w-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
-                <feature.icon className="h-7 w-7 text-primary group-hover:text-white transition-colors duration-300" />
+            <div key={i} className="min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+              <div className="h-10 w-10 md:h-14 md:w-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary transition-colors duration-300">
+                <feature.icon className="h-5 w-5 md:h-7 md:w-7 text-primary group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-              <p className="text-slate-600 leading-relaxed mb-6">{feature.desc}</p>
+              <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2 md:mb-3">{feature.title}</h3>
+              <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-4 md:mb-6">{feature.desc}</p>
               <a href="tel:09680204664" className="text-primary font-semibold inline-flex items-center group-hover:text-primary-hover transition-colors">
                 Learn more <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
@@ -273,18 +296,18 @@ const FeaturesSection = () => {
 
 const ProductsSection = () => {
   return (
-    <section className="py-20 bg-white relative z-10 overflow-hidden">
+    <section className="py-10 md:py-20 bg-white relative z-10 overflow-hidden">
       <AnimatedBackground />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-2 md:mb-3">
           <span className="text-primary">OUR</span> <span className="text-slate-900">PRODUCTS</span>
         </h2>
         <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
-        <p className="text-sm md:text-base text-slate-600 max-w-4xl mx-auto mb-12 font-medium">
+        <p className="text-sm md:text-base text-slate-600 max-w-4xl mx-auto mb-6 md:mb-12 font-medium">
           Highly Efficient Array of Solar PV Modules | Inverters | Energy Storage Systems | Premium-Quality At Affordable Price
         </p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
           {[
             { title: 'SOLAR PV MODULE', color: 'text-teal-500', img: '/prod1.png' },
             { title: 'ON GRID INVERTER', color: 'text-orange-500', img: '/prod2.png' },
@@ -296,11 +319,11 @@ const ProductsSection = () => {
             { title: 'STREET LIGHT SYSTEM', color: 'text-indigo-700', img: '/prod8.png' }
           ].map((prod, i) => (
             <div key={i} className="bg-white rounded-xl border-2 border-slate-100 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 overflow-hidden group cursor-pointer flex flex-col h-full">
-              <div className="h-56 w-full p-6 flex items-center justify-center bg-white">
+              <div className="h-32 sm:h-36 md:h-56 w-full p-2 sm:p-3 md:p-6 flex items-center justify-center bg-white">
                 <img src={prod.img} alt={prod.title} className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <div className="p-4 flex-grow flex items-center justify-center border-t-2 border-slate-50 bg-slate-50/50">
-                <h3 className={`font-black text-center text-[15px] tracking-wide ${prod.color}`}>
+              <div className="p-2 md:p-4 flex-grow flex items-center justify-center border-t-2 border-slate-50 bg-slate-50/50">
+                <h3 className={`font-black text-center text-[10px] sm:text-[12px] md:text-[15px] tracking-wide ${prod.color}`}>
                   {prod.title}
                 </h3>
               </div>
@@ -323,38 +346,38 @@ const IndustrySection = () => {
   const [active, setActive] = useState(INDUSTRY_SOLUTIONS[0]);
 
   return (
-    <section className="py-24 bg-slate-50 relative z-10 overflow-hidden">
+    <section className="py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
       <AnimatedBackground />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-2 md:mb-3">
             <span className="text-primary">SOLUTIONS</span> <span className="text-slate-900">WE OFFER</span>
           </h2>
-          <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
+          <div className="w-16 h-1 bg-primary mx-auto mb-3 md:mb-6 rounded-full"></div>
           <p className="text-sm md:text-base text-slate-600 font-medium">
             From residential rooftops to massive utility-scale parks, we engineer high-efficiency energy systems customized for your exact power needs.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-5 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="md:col-span-5 space-y-4">
             {INDUSTRY_SOLUTIONS.map((sol) => (
               <div
                 key={sol.id}
                 onClick={() => setActive(sol)}
                 onMouseEnter={() => setActive(sol)}
-                className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 border-2 ${
+                className={`mx-6 md:mx-0 p-3 md:p-6 rounded-2xl cursor-pointer transition-all duration-300 border-[0.5px] md:border-2 ${
                   active.id === sol.id 
                     ? 'bg-white border-primary shadow-xl scale-105' 
                     : 'bg-transparent border-transparent hover:bg-white/50 hover:border-slate-200'
                 }`}
               >
                 <div className="flex items-start space-x-4">
-                  <div className={`p-3 rounded-xl transition-colors ${active.id === sol.id ? 'bg-primary/10 text-primary' : 'bg-slate-200 text-slate-500'}`}>
-                    <sol.icon className="h-7 w-7" />
+                  <div className={`p-2 md:p-3 rounded-xl transition-colors ${active.id === sol.id ? 'bg-primary/10 text-primary' : 'bg-slate-200 text-slate-500'}`}>
+                    <sol.icon className="h-5 w-5 md:h-7 md:w-7" />
                   </div>
                   <div className="flex-1">
-                    <h3 className={`text-2xl font-bold transition-colors ${active.id === sol.id ? 'text-primary' : 'text-slate-800'}`}>{sol.title}</h3>
+                    <h3 className={`text-lg sm:text-xl md:text-2xl font-bold transition-colors ${active.id === sol.id ? 'text-primary' : 'text-slate-800'}`}>{sol.title}</h3>
                     <AnimatePresence>
                       {active.id === sol.id && (
                         <motion.div 
@@ -363,9 +386,12 @@ const IndustrySection = () => {
                           exit={{ opacity: 0, height: 0 }}
                           className="overflow-hidden"
                         >
-                          <p className="text-slate-600 text-sm leading-relaxed mt-2 pr-4">
+                          <p className="text-slate-600 text-xs md:text-sm leading-relaxed mt-2 pr-4">
                             {sol.desc}
                           </p>
+                          <div className="mt-4 rounded-xl overflow-hidden shadow-sm block md:hidden h-48 sm:h-64 relative border-2 border-slate-50">
+                            <img src={sol.img} alt={sol.title} className="absolute inset-0 w-full h-full object-cover" />
+                          </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -375,7 +401,7 @@ const IndustrySection = () => {
             ))}
           </div>
 
-          <div className="lg:col-span-7 h-[400px] lg:h-[600px] relative rounded-3xl overflow-hidden shadow-2xl glass group">
+          <div className="hidden md:block md:col-span-7 h-[400px] lg:h-[600px] relative rounded-3xl overflow-hidden shadow-2xl glass group">
             <AnimatePresence mode="wait">
               <motion.img
                 key={active.id}
@@ -419,27 +445,27 @@ const WHY_CHOOSE_US = [
 
 const WhyChooseUsSection = () => {
   return (
-    <section className="py-24 bg-white relative z-10 overflow-hidden">
+    <section className="py-10 md:py-20 bg-white relative z-10 overflow-hidden">
       <AnimatedBackground />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-2 md:mb-3">
             <span className="text-slate-900">WHY CHOOSE</span> <span className="text-primary">US</span>
           </h2>
-          <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
+          <div className="w-16 h-1 bg-primary mx-auto mb-2 md:mb-6 rounded-full"></div>
           <p className="text-sm md:text-base text-slate-600 font-medium">
             We deliver uncompromising quality, transparent pricing, and end-to-end solar solutions that empower you to take control of your energy future.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
           {WHY_CHOOSE_US.map((feature, i) => (
-            <div key={i} className="flex flex-col items-center text-center p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-primary/30 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
-              <div className="h-16 w-16 bg-white shadow-sm border border-slate-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
-                <feature.icon className="h-8 w-8 text-primary group-hover:text-white transition-colors duration-300" />
+            <div key={i} className="flex flex-col items-center text-center p-3 sm:p-6 md:p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-primary/30 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
+              <div className="h-10 w-10 md:h-16 md:w-16 bg-white shadow-sm border border-slate-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                <feature.icon className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+              <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">
                 {feature.desc}
               </p>
             </div>
@@ -468,50 +494,102 @@ const TESTIMONIALS = [
     role: "Corporate Director",
     content: "We were highly impressed by the premium quality of the Tier-1 panels and their 24/7 support team. Our corporate headquarters is now proudly running on 100% green energy.",
     rating: 5
+  },
+  {
+    name: "Rajeev",
+    role: "Corporate Director",
+    content: "SB SOLAR ENERGY India was our EPS & installation Service for more than 10 years and we find them very competent and committed to our satisfaction.",
+    rating: 5
   }
 ];
 
 const TestimonialsSection = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          // Scroll by roughly the width of one card (85vw)
+          scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: 'smooth' });
+        }
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="py-24 bg-slate-50 relative z-10 overflow-hidden">
+    <section className="py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
       <AnimatedBackground />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <div className="max-w-[1400px] mx-auto lg:px-8 relative z-10">
+        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-12 px-4 lg:px-0">
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-2 md:mb-3">
             <span className="text-slate-900">WHAT OUR CUSTOMERS</span> <span className="text-primary">SAY</span>
           </h2>
-          <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
+          <div className="w-16 h-1 bg-primary mx-auto mb-2 md:mb-6 rounded-full"></div>
           <p className="text-sm md:text-base text-slate-600 font-medium">
             Don't just take our word for it. Hear from our satisfied clients across residential, corporate, and industrial sectors.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((testimonial, i) => (
-            <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 relative group hover:-translate-y-1">
-              <Quote className="absolute top-6 right-6 h-16 w-16 text-slate-50 group-hover:text-primary/5 transition-colors duration-300 -z-0" />
-              
-              <div className="flex space-x-1 mb-6 relative z-10">
-                {[...Array(testimonial.rating)].map((_, j) => (
-                  <Star key={j} className="h-5 w-5 text-amber-400 fill-amber-400" />
-                ))}
-              </div>
-              
-              <p className="text-slate-600 leading-relaxed mb-8 relative z-10 italic">
-                "{testimonial.content}"
-              </p>
-              
-              <div className="flex items-center space-x-4 relative z-10">
-                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-lg">
-                  {testimonial.name.charAt(0)}
+        <div className="relative group">
+          {/* Left Arrow */}
+          <button 
+            onClick={() => scroll('left')} 
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-20 bg-transparent text-slate-400 p-2 md:p-3 rounded-full hover:bg-primary hover:text-white hover:shadow-xl hover:border-transparent border border-transparent transition-all opacity-80 group-hover:opacity-100 hidden md:block"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+          
+          {/* Scroll Container */}
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-8 pt-4 w-full scroll-smooth px-[7.5vw] sm:px-[20vw] lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            {(TESTIMONIALS.length <= 3 ? [...TESTIMONIALS, ...TESTIMONIALS] : TESTIMONIALS).map((testimonial, i) => (
+              <div key={i} className="w-[85vw] sm:w-[calc(50%_-_1rem)] lg:w-[calc(33.333%_-_1.333rem)] flex-none snap-center bg-white p-4 md:p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 relative group/card hover:-translate-y-1 flex flex-col">
+                <Quote className="absolute md:top-6 right-6 h-8 w-8 md:h-16 md:w-16 text-slate-50 group-hover/card:text-primary/5 transition-colors duration-300 -z-0" />
+                
+                <div className="flex space-x-1 mb-3 md:mb-6 relative z-10">
+                  {[...Array(testimonial.rating)].map((_, j) => (
+                    <Star key={j} className="h-4 w-4 md:h-5 md:w-5 text-amber-400 fill-amber-400" />
+                  ))}
                 </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
-                  <p className="text-sm text-slate-500">{testimonial.role}</p>
+                
+                <p className="text-sm md:text-base text-slate-600 leading-relaxed mb-4 md:mb-8 relative z-10 italic flex-grow">
+                  "{testimonial.content}"
+                </p>
+                
+                <div className="flex items-center space-x-4 relative z-10 mt-auto">
+                  <div className="h-8 w-8 md:h-12 md:w-12 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold md:text-lg shrink-0">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h4 className="text-sm md:text-base font-bold text-slate-900">{testimonial.name}</h4>
+                    <p className="text-xs md:text-base text-slate-500">{testimonial.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Right Arrow */}
+          <button 
+            onClick={() => scroll('right')} 
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-20 bg-transparent text-slate-400 p-3 rounded-full hover:bg-primary hover:text-white hover:shadow-xl hover:border-transparent border border-transparent transition-all opacity-80 group-hover:opacity-100 hidden md:block"
+          >
+            <ChevronRight className="w-8 h-8" />
+          </button>
         </div>
       </div>
     </section>
@@ -520,18 +598,56 @@ const TestimonialsSection = () => {
 
 const CTASection = () => {
   return (
-    <section className="rounded-full mb-6 mx-10 py-12 bg-gradient-to-br from-primary to-secondary/70 relative z-10 overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
-      <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-          Ready to switch to solar?
-        </h2>
-        <p className="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-          Join thousands of satisfied customers who have already reduced their carbon footprint and electricity bills. Let's build a sustainable future together.
-        </p>
-        <Button size="lg" className="bg-green-800 text-white rounded-xl hover:bg-slate-800 text-lg px-10 h-16 shadow-2xl hover:scale-105 transition-transform">
-          Get a Free Quote
-        </Button>
+    <section className="max-w-8xl mx-10 px-4 sm:px-6 lg:px-8 mb-6 relative z-10">
+      <div className="flex flex-col-reverse md:flex-row items-stretch gap-6">
+        
+        {/* Left Card - Solar CTA */}
+        <div className="w-full md:w-[40%] rounded-2xl md:rounded-r-none md:rounded-l-[40px] py-6 md:py-10 bg-gradient-to-br from-primary to-secondary/70 relative overflow-hidden shadow-xl flex flex-col justify-center items-center text-center">
+          <motion.div 
+            animate={{ scale: [3, 1.5, 0.5], opacity: [0.2, 0.2, 0.2] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"
+          />
+          <div className="relative z-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight drop-shadow-md">
+              Ready to switch to solar?
+            </h2>
+            <p className="text-white mb-4 md:mb-6 max-w-lg mx-auto font-medium text-[13px] md:text-[15px] px-2 leading-relaxed drop-shadow-sm">
+              Join thousands of satisfied customers who have already reduced their carbon footprint and electricity bills. Let's build a sustainable future together.
+            </p>
+            <Button size="lg" className="bg-[#14532d] text-sm md:text-base text-white rounded-lg hover:bg-slate-900 px-4 md:px-8 h-8 md:h-12 shadow-xl hover:-translate-y-1 transition-transform border-0">
+              Get a Free Quote
+            </Button>
+          </div>
+        </div>
+
+        {/* Right Card - Reseller CTA */}
+        <div className="w-full md:w-[60%] rounded-2xl md:rounded-l-none md:rounded-r-[40px] py-6 md:py-10 bg-[#0f172a] relative overflow-hidden shadow-xl flex flex-col justify-center">
+          <motion.div 
+            animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 opacity-30 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:20px_20px] z-0"
+          />
+          
+          <div className="relative z-10 flex flex-col items-center justify-between gap-8 text-center md:text-left">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white px-2 tracking-tight leading-tight max-w-lg text-center">
+              Become a Reseller Program and earn upto <span className="text-[#eab308]">Rs. 50 K</span> per month.
+            </h3>
+            
+            <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
+              <Button className="bg-[#0ea5e9] hover:bg-[#0284c7] text-white border-0 shadow-lg font-bold tracking-wide px-4 md:px-6 h-8 md:h-12 text-[14px] hover:-translate-y-1 transition-transform rounded-md">
+                ENROLL NOW
+              </Button>
+              <a href="tel:+919680204664">
+                <Button className="bg-[#ef4444] hover:bg-[#dc2626] text-white border-0 shadow-lg font-bold tracking-wide px-4 md:px-6 h-8 md:h-12 text-[14px] flex items-center hover:-translate-y-1 transition-transform rounded-md">
+                  <Phone className="h-4 w-4 mr-2" />
+                  CALL NOW
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -556,6 +672,7 @@ const Home = () => {
         {heroOption === 'slider' ? <HeroSlider /> : <HeroModern />}
       </div>
 
+      {/* <HeroSlider /> */}
       <FeaturesSection />
       <ProductsSection />
       <IndustrySection />

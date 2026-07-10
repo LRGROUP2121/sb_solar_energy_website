@@ -1,7 +1,7 @@
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
-export const Contact = () => {
+const Contact = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Page Header */}
@@ -99,3 +99,5 @@ export const Contact = () => {
     </div>
   );
 };
+
+export default Contact;

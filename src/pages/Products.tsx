@@ -22,7 +22,7 @@ const Products = () => {
       <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-slate-900/70 z-10"></div>
-          <img src="/hero3.png" alt="Solar Products Catalog" className="w-full h-full object-cover scale-105" />
+          <img src="/products_hero.png" alt="Solar Products Catalog" className="w-full h-full object-cover scale-105" />
         </div>
         <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
           <motion.div
@@ -73,22 +73,22 @@ const Products = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 onClick={() => navigate(`/products/${prod.id}`)}
-                className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-2xl hover:border-primary/30 transition-all duration-300 group flex flex-col h-full cursor-pointer"
+                className="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 transition-all duration-300 group flex flex-col h-full cursor-pointer"
               >
-                <div className="h-56 bg-slate-50/50 p-8 flex items-center justify-center relative overflow-hidden border-b border-slate-50">
-                  <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-300"></div>
+                <div className="aspect-[4/3] bg-slate-100 p-6 flex items-center justify-center relative overflow-hidden border-b border-slate-200">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-200/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <img 
                     src={prod.img} 
                     alt={prod.title} 
-                    className="max-h-full max-w-full object-contain relative z-10 group-hover:scale-110 transition-transform duration-500" 
+                    className="max-h-full max-w-full object-contain relative z-10 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply drop-shadow-sm" 
                   />
                 </div>
-                <div className="p-8 flex-grow flex flex-col">
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">{prod.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{prod.desc}</p>
+                <div className="p-6 md:p-8 flex-grow flex flex-col bg-white">
+                  <h3 className="text-lg md:text-xl font-black text-slate-900 mb-3 group-hover:text-primary transition-colors tracking-tight">{prod.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{prod.desc}</p>
                   
-                  <div className="mt-auto">
-                    <Button variant="outline" className="w-full justify-between group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+                  <div className="mt-auto pt-4 border-t border-slate-50">
+                    <Button variant="outline" className="w-full justify-between border-slate-200 text-slate-700 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300 shadow-sm font-semibold">
                       View Specifications
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>

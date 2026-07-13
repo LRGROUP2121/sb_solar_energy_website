@@ -1,4 +1,4 @@
-import { Award, Target, Users, Shield, Globe, Leaf, Zap, Settings, Download } from 'lucide-react';
+import { Award, Target, Users, Shield, Globe, Leaf, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AboutUs = () => {

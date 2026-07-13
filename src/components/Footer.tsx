@@ -134,7 +134,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 md:pt-8 mt-6 md:mt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 relative text-center md:text-left">
+        <div className="pt-6 md:pt-8 mt-6 md:mt-8 border-t border-slate-800 flex flex-col md:flex-row justify-center items-center gap-3 md:gap-6 relative text-center md:text-left">
           
           {/* Jumping Solar Animation */}
           <motion.div

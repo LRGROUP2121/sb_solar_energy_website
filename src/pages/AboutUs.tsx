@@ -1,4 +1,4 @@
-import { Award, Target, Users, Shield, Globe, Leaf } from 'lucide-react';
+import { Award, Target, Users, Shield, Globe, Leaf, Zap, Settings, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AboutUs = () => {
@@ -9,7 +9,7 @@ const AboutUs = () => {
       <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-slate-900/60 z-10"></div>
-          <img src="/hero2.png" alt="About SB Solar Energy" className="w-full h-full object-cover scale-105" />
+          <img src="/about_hero.png" alt="About SB Solar Energy" className="w-full h-full object-cover scale-105" />
         </div>
         <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
           <motion.div
@@ -28,25 +28,28 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="relative z-30 -mt-16 max-w-6xl mx-auto px-4 w-full">
-        <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-8 md:p-10 border border-slate-100 flex flex-wrap justify-between items-center gap-8">
+      {/* Sleek Stats Bar */}
+      <section className="relative z-30 -mt-8 max-w-5xl mx-auto px-4 w-full">
+        <div className="bg-white rounded-xl shadow-lg shadow-slate-200/50 py-2 md:py-4 border border-slate-100 flex flex-col md:flex-row items-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
           {[
-            { value: "1,000+", label: "Happy Clients" },
-            { value: "10MW+", label: "Energy Generated" },
-            { value: "25+", label: "Years Warranty" },
-            { value: "100%", label: "Eco-Friendly" }
+            { icon: Users, value: "1,000+", label: "Happy Clients", color: "text-blue-500" },
+            { icon: Zap, value: "10MW+", label: "Energy Generated", color: "text-amber-500" },
+            { icon: Shield, value: "25+", label: "Years Warranty", color: "text-emerald-500" },
+            { icon: Leaf, value: "100%", label: "Eco-Friendly", color: "text-green-500" }
           ].map((stat, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="text-center flex-1 min-w-[120px]"
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="flex items-center justify-center w-full md:w-1/4 py-3 md:py-0 group"
             >
-              <h3 className="text-4xl font-black text-slate-900 mb-2">{stat.value}</h3>
-              <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider">{stat.label}</p>
+              <stat.icon className={`h-5 w-5 md:h-6 md:w-6 ${stat.color} mr-3 group-hover:scale-110 transition-transform`} strokeWidth={2.5} />
+              <div className="flex flex-col text-left justify-center">
+                <span className="font-bold text-sm md:text-base text-slate-900 leading-tight">{stat.value}</span>
+                <span className="font-semibold text-[10px] md:text-[11px] text-slate-500 uppercase tracking-wider leading-none mt-0.5">{stat.label}</span>
+              </div>
             </motion.div>
           ))}
         </div>

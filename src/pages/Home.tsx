@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, LayoutTemplate, Award, TrendingUp, Phone, Settings, FileText, Star, Quote } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -110,89 +110,7 @@ const HeroSlider = () => {
   );
 };
 
-const HeroModern = () => {
-  return (
-    <div className="relative pt-24 pb-20 lg:pt-32 lg:pb-28 overflow-hidden bg-slate-50">
-      <div className="absolute top-0 left-1/2 w-full -translate-x-1/2 z-0 overflow-hidden h-full opacity-40">
-        <div className="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] rounded-full bg-primary/20 blur-3xl"></div>
-        <div className="absolute top-[20%] -left-[10%] w-[600px] h-[600px] rounded-full bg-amber-400/20 blur-3xl"></div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
-          >
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-sm font-semibold mb-6 shadow-sm">
-              <Sun className="h-4 w-4" />
-              <span>Smart Homes Run On Smart Solar</span>
-            </div>
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.1]">
-              Power Your Future With <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Clean Energy</span>
-            </h1>
-            <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-              Complete solution for all your power needs. Upgrade to Go Green, enjoy up to 90% lower electricity bills, and secure a sustainable future.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="h-14 px-8 text-lg group shadow-xl shadow-primary/25 hover:scale-105 transition-transform">
-                Get a Free Quote
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-slate-300 text-slate-700 hover:bg-slate-100 bg-white hover:scale-105 transition-transform shadow-sm">
-                Explore Products
-              </Button>
-            </div>
-            
-            <div className="mt-10 flex flex-wrap items-center gap-6 text-sm font-medium text-slate-600">
-              <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
-                <Shield className="h-5 w-5 text-primary" />
-                <span>25-Year Warranty</span>
-              </div>
-              <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
-                <Zap className="h-5 w-5 text-amber-500" />
-                <span>Govt. Subsidies</span>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative lg:ml-auto w-full max-w-lg mx-auto lg:mx-0 mt-8 lg:mt-0"
-          >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border-[6px] border-white/50 glass aspect-square lg:aspect-auto lg:h-[600px]">
-              <img 
-                src="/hero4.png" 
-                alt="Modern Solar Installation" 
-                className="w-full h-full object-cover"
-              />
-              
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="absolute bottom-6 left-6 bg-white p-4 rounded-xl shadow-xl flex items-center space-x-4 border border-slate-100 z-10"
-              >
-                <div className="bg-emerald-100 p-3 rounded-lg text-primary">
-                  <Factory className="h-6 w-6" />
-                </div>
-                <div>
-                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Trusted By</p>
-                  <p className="text-lg font-bold text-slate-900">1,000+ Brands</p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-          
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const AnimatedBackground = () => {
   const particles = Array.from({ length: 40 }).map((_, i) => ({
@@ -554,7 +472,7 @@ const TestimonialsSection = () => {
           {/* Scroll Container */}
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-8 pt-4 w-full scroll-smooth px-[7.5vw] sm:px-[20vw] lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-8 pt-4 w-full scroll-smooth px-[7.5vw] sm:px-[20vw] lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {(TESTIMONIALS.length <= 3 ? [...TESTIMONIALS, ...TESTIMONIALS] : TESTIMONIALS).map((testimonial, i) => (
               <div key={i} className="w-[85vw] sm:w-[calc(50%_-_1rem)] lg:w-[calc(33.333%_-_1.333rem)] flex-none snap-center bg-white p-4 md:p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 relative group/card hover:-translate-y-1 flex flex-col">
@@ -596,88 +514,175 @@ const TestimonialsSection = () => {
   );
 };
 
-const CTASection = () => {
-  return (
-    <section className="max-w-8xl mx-10 px-4 sm:px-6 lg:px-8 mb-6 relative z-10">
-      <div className="flex flex-col-reverse md:flex-row items-stretch gap-6">
-        
-        {/* Left Card - Solar CTA */}
-        <div className="w-full md:w-[40%] rounded-2xl md:rounded-r-none md:rounded-l-[40px] py-6 md:py-10 bg-gradient-to-br from-primary to-secondary/70 relative overflow-hidden shadow-xl flex flex-col justify-center items-center text-center">
-          <motion.div 
-            animate={{ scale: [3, 1.5, 0.5], opacity: [0.2, 0.2, 0.2] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"
-          />
-          <div className="relative z-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight drop-shadow-md">
-              Ready to switch to solar?
-            </h2>
-            <p className="text-white mb-4 md:mb-6 max-w-lg mx-auto font-medium text-[13px] md:text-[15px] px-2 leading-relaxed drop-shadow-sm">
-              Join thousands of satisfied customers who have already reduced their carbon footprint and electricity bills. Let's build a sustainable future together.
-            </p>
-            <Button size="lg" className="bg-[#14532d] text-sm md:text-base text-white rounded-lg hover:bg-slate-900 px-4 md:px-8 h-8 md:h-12 shadow-xl hover:-translate-y-1 transition-transform border-0">
-              Get a Free Quote
-            </Button>
+const BrandsSection = () => {
+  const brands = [
+    {
+      id: 'tata',
+      content: (
+        <div className="flex flex-col items-center justify-center space-y-1">
+          <span className="font-black text-xl md:text-2xl text-[#005587] tracking-wider leading-none">TATA POWER</span>
+          <span className="font-bold text-sm md:text-base text-[#F47920] tracking-widest leading-none">SOLAROOF</span>
+        </div>
+      )
+    },
+    {
+      id: 'adani',
+      content: (
+        <div className="flex flex-col items-center justify-center">
+          <span className="font-bold text-3xl md:text-4xl text-[#033E8C] tracking-tighter lowercase leading-none">adani</span>
+          <span className="font-semibold text-sm md:text-base text-slate-500 tracking-wide mt-1 leading-none">Power</span>
+        </div>
+      )
+    },
+    {
+      id: 'ina',
+      content: (
+        <div className="flex flex-col items-center justify-center">
+          <span className="font-black text-3xl md:text-4xl text-[#0089CF] tracking-tighter italic leading-none">INA <span className="text-sm md:text-base not-italic text-[#003876]">SOLAR</span></span>
+          <span className="font-bold text-[8px] md:text-[10px] text-white bg-[#F37021] px-1 mt-1 tracking-widest leading-none py-0.5">TOGETHER WE SHINE</span>
+        </div>
+      )
+    },
+    {
+      id: 'usha',
+      content: (
+        <div className="flex flex-col items-center justify-center border-2 border-[#D31245] p-1.5 md:p-2 bg-white">
+          <span className="font-black text-xl md:text-2xl text-[#D31245] tracking-widest leading-none">USHA</span>
+          <div className="w-full h-0.5 bg-[#D31245] my-1"></div>
+          <span className="font-bold text-xs md:text-sm text-[#D31245] tracking-widest leading-none">SHRIRAM</span>
+        </div>
+      )
+    },
+    {
+      id: 'eastman',
+      content: (
+        <div className="flex items-center justify-center gap-2">
+          <div className="relative">
+             <div className="w-8 h-8 md:w-10 md:h-10 border-[3px] border-[#FDB913] rounded-full"></div>
+             <div className="absolute inset-0 m-auto w-3 h-3 md:w-4 md:h-4 bg-[#FDB913] rounded-full"></div>
+          </div>
+          <div className="flex flex-col justify-center items-start">
+             <span className="font-black text-2xl md:text-3xl text-[#1E3A8A] italic leading-none">Eastman</span>
+             <span className="font-bold text-[7px] md:text-[9px] text-[#1E3A8A] uppercase tracking-tighter leading-none mt-1">Energy. Unlimited.</span>
           </div>
         </div>
+      )
+    },
+    {
+      id: 'xwatt',
+      content: (
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex items-baseline">
+            <span className="font-black text-4xl md:text-5xl text-[#E3000F] leading-none">X</span>
+            <span className="font-medium text-2xl md:text-3xl text-[#53565A] leading-none -ml-1">wätt</span>
+          </div>
+          <span className="font-bold text-[9px] md:text-[11px] text-[#53565A] mt-1 tracking-wider uppercase leading-none">
+            Solar Ongrid <span className="text-[#E3000F]">Inverter</span>
+          </span>
+        </div>
+      )
+    },
+  ];
 
-        {/* Right Card - Reseller CTA */}
-        <div className="w-full md:w-[60%] rounded-2xl md:rounded-l-none md:rounded-r-[40px] py-6 md:py-10 bg-[#0f172a] relative overflow-hidden shadow-xl flex flex-col justify-center">
-          <motion.div 
-            animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 opacity-30 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:20px_20px] z-0"
-          />
+  return (
+    <section className="py-10 md:py-20 bg-white relative overflow-hidden">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 md:mb-12 text-center">
+        <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight uppercase">
+          <span className="text-[#8CC63F]">BRANDS</span> WE DEAL IN
+        </h2>
+        <div className="w-24 h-1 bg-[#10b981] mx-auto mt-4 rounded-full"></div>
+      </div>
+      
+      {/* Marquee Wrapper */}
+      <div className="relative w-full overflow-hidden flex bg-white py-3 sm:py-6 md:py-10 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-20 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-20 after:bg-gradient-to-l after:from-white after:to-transparent">
+        <motion.div
+          animate={{ x: [0, -1920] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
+          className="flex flex-nowrap gap-3 sm:gap-8 md:gap-16 items-center"
+        >
+          {/* Render 3 sets of the brands to ensure infinite loop seamlessly */}
+          {[...brands, ...brands, ...brands].map((brand, i) => (
+            <div key={`${brand.id}-${i}`} className="flex-shrink-0 transition-all duration-300 transform hover:scale-125 hover:-translate-y-2 hover:drop-shadow-2xl px-2 md:px-4 cursor-pointer relative z-10 hover:z-20">
+              {brand.content}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+const CTASection = () => {
+  return (
+    <section className="max-w-8xl mx-4 md:mx-10 px-4 sm:px-6 lg:px-8 mb-10 relative z-10">
+      <div className="w-full rounded-2xl md:rounded-[30px] py-8 md:py-10 bg-[#0f172a] relative overflow-hidden shadow-2xl flex flex-col justify-center border border-slate-800">
+        <motion.div 
+          animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 opacity-30 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:20px_20px] z-0"
+        />
+        
+        <div className="relative z-10 flex flex-col items-center justify-between gap-x-6 gap-y-3 sm:gap-x-6 md:gap-8 text-center px-2 sm:px-4">
           
-          <div className="relative z-10 flex flex-col items-center justify-between gap-8 text-center md:text-left">
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white px-2 tracking-tight leading-tight max-w-lg text-center">
-              Become a Reseller Program and earn upto <span className="text-[#eab308]">Rs. 50 K</span> per month.
+          {/* Top Section - Reseller CTA */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-5 w-full px-2 sm:px-6 md:px-12">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white px-2 tracking-tight leading-tight max-w-2xl text-center">
+              Become a Certified Dealer & Channel Partner
             </h3>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
-              <Button className="bg-[#0ea5e9] hover:bg-[#0284c7] text-white border-0 shadow-lg font-bold tracking-wide px-4 md:px-6 h-8 md:h-12 text-[14px] hover:-translate-y-1 transition-transform rounded-md">
+            <div className="flex md:flex-wrap items-center justify-center gap-3 shrink-0">
+              <Button className="bg-[#0ea5e9] hover:bg-[#0284c7] text-white border-0 shadow-lg font-bold tracking-wide px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 text-[10px] sm:text-[14px] hover:-translate-y-1 transition-transform rounded-md">
                 ENROLL NOW
               </Button>
               <a href="tel:+919680204664">
-                <Button className="bg-[#ef4444] hover:bg-[#dc2626] text-white border-0 shadow-lg font-bold tracking-wide px-4 md:px-6 h-8 md:h-12 text-[14px] flex items-center hover:-translate-y-1 transition-transform rounded-md">
-                  <Phone className="h-4 w-4 mr-2" />
+                <Button className="bg-[#ef4444] hover:bg-[#dc2626] text-white border-0 shadow-lg font-bold tracking-wide px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 text-[10px] sm:text-[14px] flex items-center hover:-translate-y-1 transition-transform rounded-md">
+                  <Phone className="h-3 sm:h-4 w-4 mr-2" />
                   CALL NOW
                 </Button>
               </a>
             </div>
           </div>
-        </div>
 
+          {/* Divider */}
+          <div className="w-full max-w-8xl h-px bg-slate-700/50"></div>
+
+          {/* Bottom Section - Solar CTA */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-5 w-full px-2 sm:px-6 md:px-12">
+            <div className='text-left'>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-white tracking-tight drop-shadow-md">
+              Go Solar with Zero Investment
+            </h2>
+            <p className="text-slate-300 font-medium text-[11px] sm:text-[13px] md:text-[15px] leading-relaxed drop-shadow-sm text-center">
+              Government subsidy covers your downpayment, and monthly solar saving covers your EMI.
+            </p></div>
+            <Button size="lg" className="bg-[#14532d] mt-1 text-sm md:text-base text-white rounded-md hover:bg-primary px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 shadow-xl hover:-translate-y-1 transition-transform border-0">
+              Get a Free Quote
+            </Button>
+          </div>
+
+        </div>
       </div>
     </section>
   );
 };
 
 const Home = () => {
-  const [heroOption, setHeroOption] = useState<'slider' | 'modern'>('slider');
-
   return (
     <div className="flex flex-col min-h-screen relative">
-      <div className="relative">
-        <div className="absolute bottom-6 right-6 z-50 animate-bounce">
-          <button
-            onClick={() => setHeroOption(prev => prev === 'slider' ? 'modern' : 'slider')}
-            className="flex items-center space-x-2 bg-slate-900/90 backdrop-blur text-white px-5 py-3 rounded-full shadow-2xl hover:bg-slate-900 transition-all active:scale-95 border border-slate-700"
-          >
-            <LayoutTemplate className="h-5 w-5 text-primary" />
-            <span className="font-semibold text-sm">Switch to {heroOption === 'slider' ? 'Modern' : 'Slider'}</span>
-          </button>
-        </div>
-
-        {heroOption === 'slider' ? <HeroSlider /> : <HeroModern />}
-      </div>
-
-      {/* <HeroSlider /> */}
+      <HeroSlider />
       <FeaturesSection />
       <ProductsSection />
       <IndustrySection />
       <WhyChooseUsSection />
       <TestimonialsSection />
+      <BrandsSection />
       <CTASection />
     </div>
   );

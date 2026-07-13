@@ -46,7 +46,7 @@ const Services = () => {
       <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-slate-900/75 z-10"></div>
-          <img src="/hero1.jpg" alt="Our Services" className="w-full h-full object-cover scale-105" />
+          <img src="/services_hero.png" alt="Our Services" className="w-full h-full object-cover scale-105" />
         </div>
         <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
           <motion.div

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone, X } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -715,69 +715,92 @@ const CTASection = () => {
 };
 
 const GoodZeroNotification = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
+
   return (
-    <section className="py-12 bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] relative overflow-hidden border-b border-blue-100/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+    <AnimatePresence>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+      >
+        <motion.div 
+          initial={{ scale: 0.95, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.95, opacity: 0, y: 20 }}
+          className="relative w-full max-w-5xl bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] rounded-2xl shadow-2xl overflow-hidden border border-blue-100 p-8 lg:p-12"
+        >
+          <button 
+            onClick={() => setIsVisible(false)}
+            className="absolute top-4 right-4 p-2 bg-white/50 hover:bg-white rounded-full transition-colors text-slate-500 hover:text-slate-800 z-50 shadow-sm"
+          >
+            <X className="w-5 h-5" />
+          </button>
           
-          {/* Left Content */}
-          <div className="lg:w-1/3 space-y-6">
-            <div>
-              <p className="text-slate-600 font-medium text-lg mb-1">Introducing</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#1e3a8a] tracking-tight">
-                GoodZero<sup className="text-xl ml-1 font-bold">™</sup>
-              </h2>
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+            
+            {/* Left Content */}
+            <div className="lg:w-1/3 space-y-6">
+              <div>
+                <p className="text-slate-600 font-medium text-lg mb-1">Introducing</p>
+                <h2 className="text-4xl lg:text-5xl font-black text-[#1e3a8a] tracking-tight">
+                  GoodZero<sup className="text-xl ml-1 font-bold">™</sup>
+                </h2>
+              </div>
+              
+              <p className="text-slate-800 font-bold text-xl leading-snug max-w-sm">
+                India's only Guaranteed Solar Savings Plan
+              </p>
+              
+              <Button className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
+                Know More about GoodZero
+              </Button>
             </div>
-            
-            <p className="text-slate-800 font-bold text-xl leading-snug max-w-sm">
-              India's only Guaranteed Solar Savings Plan
-            </p>
-            
-            <Button className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
-              Know More about GoodZero
-            </Button>
-          </div>
 
-          {/* Middle Features Grid */}
-          <div className="lg:w-2/5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                <PiggyBank className="w-5 h-5 text-blue-600" />
+            {/* Middle Features Grid */}
+            <div className="lg:w-2/5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                  <PiggyBank className="w-5 h-5 text-blue-600" />
+                </div>
+                <p className="text-slate-700 font-medium leading-tight">Money-back promise at Rs. 8/unit</p>
               </div>
-              <p className="text-slate-700 font-medium leading-tight">Money-back promise at Rs. 8/unit</p>
-            </div>
-            
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                <CreditCard className="w-5 h-5 text-blue-600" />
+              
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                  <CreditCard className="w-5 h-5 text-blue-600" />
+                </div>
+                <p className="text-slate-700 font-medium leading-tight">Regular Proactive maintenance visits</p>
               </div>
-              <p className="text-slate-700 font-medium leading-tight">Regular Proactive maintenance visits</p>
-            </div>
-            
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                <Settings className="w-5 h-5 text-blue-600" />
+              
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                  <Settings className="w-5 h-5 text-blue-600" />
+                </div>
+                <p className="text-slate-700 font-medium leading-tight">₹0 Repair & Replacement Cost</p>
               </div>
-              <p className="text-slate-700 font-medium leading-tight">₹0 Repair & Replacement Cost</p>
-            </div>
-            
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                <Smartphone className="w-5 h-5 text-blue-600" />
+              
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                  <Smartphone className="w-5 h-5 text-blue-600" />
+                </div>
+                <p className="text-slate-700 font-medium leading-tight">App to track real-time power generation</p>
               </div>
-              <p className="text-slate-700 font-medium leading-tight">App to track real-time power generation</p>
             </div>
-          </div>
 
-          {/* Right Image */}
-          <div className="lg:w-1/4 flex justify-center lg:justify-end relative">
-            <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full scale-150"></div>
-            <img src="/shield_guarantee_3d.png" alt="GoodZero Guarantee" className="w-64 lg:w-80 object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
-          </div>
+            {/* Right Image */}
+            <div className="lg:w-1/4 flex justify-center lg:justify-end relative">
+              <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full scale-150"></div>
+              <img src="/shield_guarantee_3d.png" alt="GoodZero Guarantee" className="w-48 lg:w-64 object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
+            </div>
 
-        </div>
-      </div>
-    </section>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

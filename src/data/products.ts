@@ -28,7 +28,7 @@ export const productsData: Record<string, ProductData> = {
       { label: 'Efficiency', value: 'Up to 21.5%' },
       { label: 'Warranty', value: '25 Years' }
     ],
-    image: '/prod1.png',
+    image: '/solar_pv.png',
     bgGradient: 'from-teal-900 to-slate-900'
   },
   'street-light': {

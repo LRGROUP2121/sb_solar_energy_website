@@ -9,6 +9,7 @@ import ProductDetail from './pages/ProductDetail';
 import Services from './pages/Services';
 import Solutions from './pages/Solutions';
 import Contact from './pages/Contact';
+import VendorRegistration from './pages/VendorRegistration';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/solutions" element={<Solutions />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/vendor-registration" element={<VendorRegistration />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
@@ -33,7 +35,7 @@ const App = () => {
 
         {/* Floating WhatsApp Button */}
         <a
-          href="https://wa.me/919680204664"
+          href="https://wa.me/917023204664"
           target="_blank"
           rel="noreferrer"
           className="fixed bottom-4 right-6 md:bottom-10 md:right-5 z-[100] bg-[#25D366] text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 hover:bg-[#20bd5a] transition-all duration-300 flex items-center justify-center group cursor-pointer"

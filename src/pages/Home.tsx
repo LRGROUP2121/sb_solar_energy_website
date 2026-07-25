@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,19 +19,26 @@ const HERO_SLIDES = [
   },
   {
     id: 3,
-    title: "Get Upto ₹ Subsidy By Central Government",
+    title: "Get Upto ₹ 78,000 Subsidy By Central Government",
     subtitle: "Install solar at your home to reduce electricity bills by up to 90% and secure your sustainable future.",
     image: "/hero3.png"
+  },
+  {
+    id: 4,
+    title: "Illuminate Your Sustainable Future",
+    subtitle: "System with a Battery Backup | System without Battery",
+    image: "/hero4.png"
   }
 ];
 
 const HeroSlider = () => {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
+    }, 500000);
     return () => clearInterval(timer);
   }, []);
 
@@ -68,18 +76,18 @@ const HeroSlider = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-4xl text-center mx-auto"
             >
-              <h1 className="text-lg md:text-3xl lg:text-5xl font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg">
+              <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg uppercase">
                 {HERO_SLIDES[currentSlide].title}
               </h1>
-              <p className="text-sm md:text-lg lg:text-xl text-slate-200 mb-10 font-light drop-shadow-md">
+              <p className="text-sm md:text-lg lg:text-xl text-yellow-400 mb-10 font-light drop-shadow-md">
                 {HERO_SLIDES[currentSlide].subtitle}
               </p>
               <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-                <Button size="sm" className="group shadow-xl shadow-primary/20 hover:scale-105 transition-transform md:h-14 md:px-8 md:text-lg sm:h-11 sm:px-6 sm:text-base">
+                <Button onClick={() => navigate('/contact')} size="sm" className="group rounded-full shadow-xl shadow-primary/20 hover:scale-105 transition-transform md:h-14 md:px-8 md:text-lg sm:h-11 sm:px-6 sm:text-base">
                   Let's Start Now
-                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                  <Pointer className="rotate-90 ml-2 h-3 w-4 md:h-4 md:w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button size="sm" variant="outline" className="text-white border-white hover:bg-white hover:text-slate-900 hover:scale-105 transition-transform md:h-14 md:px-8 md:text-lg sm:h-11 sm:px-6 sm:text-base bg-white/5 backdrop-blur-sm">
+                <Button onClick={() => navigate('/products')} size="sm" variant="outline" className="text-white border-white rounded-full hover:bg-white hover:text-slate-900 hover:scale-105 transition-transform md:h-14 md:px-8 md:text-lg sm:h-11 sm:px-6 sm:text-base bg-white/5 backdrop-blur-sm">
                   View Our Products
                 </Button>
               </div>
@@ -151,6 +159,15 @@ const AnimatedBackground = () => {
 
 const FeaturesSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+  const rotatingWords = ["Investment", "Electricity Bill"];
+
+  useEffect(() => {
+    const wordInterval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2500);
+    return () => clearInterval(wordInterval);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -174,13 +191,34 @@ const FeaturesSection = () => {
     <section className="py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
       <AnimatedBackground />
       <div className="max-w-7xl mx-auto md:px-5 lg:px-8 relative z-10">
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight mb-3 md:mb-4 flex flex-wrap justify-center items-center gap-x-2">
+            <span>Power Your Home With <span className="text-primary">Solar</span> At Zero</span>
+            <span className="relative inline-flex flex-col h-[1.2em] overflow-hidden min-w-[140px] md:min-w-[300px] text-left">
+              <AnimatePresence mode="popLayout">
+                <motion.span
+                  key={wordIndex}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="bg-gradient-to-r from-blue-600 via-indigo-500 to-green-500 bg-clip-text text-transparent block absolute inset-0"
+                >
+                  {rotatingWords[wordIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </h2>
+          <div className="w-16 h-1 bg-primary mx-auto rounded-full mt-2"></div>
+        </div>
+        
         <div 
           ref={scrollRef}
           className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory px-[7.5vw] sm:px-[20vw] md:px-0 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {[
             {
-              title: 'Get Upto ₹ Subsidy',
+              title: 'Get Upto ₹78,000 Subsidy',
               desc: 'Install solar at your home to reduce electricity bill by up to 90% and also get subsidy from the central government.',
               icon: Zap
             },
@@ -196,12 +234,14 @@ const FeaturesSection = () => {
             }
           ].map((feature, i) => (
             <div key={i} className="min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-              <div className="h-10 w-10 md:h-14 md:w-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary transition-colors duration-300">
-                <feature.icon className="h-5 w-5 md:h-7 md:w-7 text-primary group-hover:text-white transition-colors duration-300" />
+              <div className="flex items-center space-x-3 md:space-x-4 mb-4 md:mb-6">
+                <div className="h-10 w-10 md:h-14 md:w-14 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                  <feature.icon className="h-5 w-5 md:h-7 md:w-7 text-primary group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-lg md:text-xl font-bold text-slate-900">{feature.title}</h3>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2 md:mb-3">{feature.title}</h3>
               <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-4 md:mb-6">{feature.desc}</p>
-              <a href="tel:09680204664" className="text-primary font-semibold inline-flex items-center group-hover:text-primary-hover transition-colors">
+              <a href="tel:07023204664" className="text-primary font-semibold inline-flex items-center group-hover:text-primary-hover transition-colors">
                 Learn more <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
@@ -227,10 +267,10 @@ const ProductsSection = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
           {[
-            { title: 'SOLAR PV MODULE', color: 'text-teal-500', img: '/prod1.png' },
+            { title: 'SOLAR PV MODULE', color: 'text-teal-500', img: '/solar_pv.png' },
             { title: 'ON GRID INVERTER', color: 'text-orange-500', img: '/prod2.png' },
             { title: 'HYBRID INVERTER', color: 'text-green-600', img: '/prod3.png' },
-            { title: 'SOLAR INVERTER - OFF GRID', color: 'text-rose-600', img: '/prod4.png' },
+            { title: 'SOLAR INVERTER - OFF GRID', color: 'text-rose-600', img: '/off_grid_inverter.png' },
             { title: 'BATTERIES', color: 'text-pink-600', img: '/prod5.png' },
             { title: 'SOLAR WATER HEATER', color: 'text-blue-500', img: '/prod6.png' },
             { title: 'ACCESSORIES SOLAR', color: 'text-amber-500', img: '/prod7.png' },
@@ -267,13 +307,13 @@ const IndustrySection = () => {
     <section className="py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
       <AnimatedBackground />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-6 md:mb-12">
+        <div className="text-center max-w-5xl mx-auto mb-6 md:mb-12">
           <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-2 md:mb-3">
             <span className="text-primary">SOLUTIONS</span> <span className="text-slate-900">WE OFFER</span>
           </h2>
           <div className="w-16 h-1 bg-primary mx-auto mb-3 md:mb-6 rounded-full"></div>
           <p className="text-sm md:text-base text-slate-600 font-medium">
-            From residential rooftops to massive utility-scale parks, we engineer high-efficiency energy systems customized for your exact power needs.
+            Solar Energy India Provides Solutions For Various Industries, Offering Comprehensive Coverage For Effective And Efficient Safety & Quality.
           </p>
         </div>
 
@@ -353,7 +393,7 @@ const IndustrySection = () => {
 };
 
 const WHY_CHOOSE_US = [
-  { title: "25-Year Warranty", desc: "Long-term peace of mind with our comprehensive performance guarantees.", icon: Shield },
+  { title: "25-Year Performance Warranty", desc: "Long-term peace of mind with our comprehensive performance guarantees.", icon: Shield },
   { title: "Expert Installation", desc: "Our certified engineers ensure flawless, safe, and efficient setups.", icon: Settings },
   { title: "Govt. Subsidy Support", desc: "We handle the paperwork to get you the maximum central subsidies.", icon: FileText },
   { title: "Tier-1 Quality", desc: "We use only premium, globally-rated solar panels and inverters.", icon: Award },
@@ -620,6 +660,7 @@ const BrandsSection = () => {
 };
 
 const CTASection = () => {
+  const navigate = useNavigate();
   return (
     <section className="max-w-8xl mx-4 md:mx-10 px-4 sm:px-6 lg:px-8 mb-10 relative z-10">
       <div className="w-full rounded-2xl md:rounded-[30px] py-8 md:py-10 bg-[#0f172a] relative overflow-hidden shadow-2xl flex flex-col justify-center border border-slate-800">
@@ -638,10 +679,10 @@ const CTASection = () => {
             </h3>
             
             <div className="flex md:flex-wrap items-center justify-center gap-3 shrink-0">
-              <Button className="bg-[#0ea5e9] hover:bg-[#0284c7] text-white border-0 shadow-lg font-bold tracking-wide px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 text-[10px] sm:text-[14px] hover:-translate-y-1 transition-transform rounded-md">
+              <Button onClick={() => navigate('/vendor-registration')} className="bg-[#0ea5e9] hover:bg-[#0284c7] text-white border-0 shadow-lg font-bold tracking-wide px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 text-[10px] sm:text-[14px] hover:-translate-y-1 transition-transform rounded-md">
                 ENROLL NOW
               </Button>
-              <a href="tel:+919680204664">
+              <a href="tel:+917023204664">
                 <Button className="bg-[#ef4444] hover:bg-[#dc2626] text-white border-0 shadow-lg font-bold tracking-wide px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 text-[10px] sm:text-[14px] flex items-center hover:-translate-y-1 transition-transform rounded-md">
                   <Phone className="h-3 sm:h-4 w-4 mr-2" />
                   CALL NOW
@@ -651,10 +692,10 @@ const CTASection = () => {
           </div>
 
           {/* Divider */}
-          <div className="w-full max-w-8xl h-px bg-slate-700/50"></div>
+          {/* <div className="w-full max-w-8xl h-px bg-slate-700/50"></div> */}
 
           {/* Bottom Section - Solar CTA */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-5 w-full px-2 sm:px-6 md:px-12">
+          {/* <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-5 w-full px-2 sm:px-6 md:px-12">
             <div className='text-left'>
             <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-white tracking-tight drop-shadow-md">
               Go Solar with Zero Investment
@@ -665,6 +706,73 @@ const CTASection = () => {
             <Button size="lg" className="bg-[#14532d] mt-1 text-sm md:text-base text-white rounded-md hover:bg-primary px-3 sm:px-6 md:px-8 h-6 sm:h-9 md:h-10 shadow-xl hover:-translate-y-1 transition-transform border-0">
               Get a Free Quote
             </Button>
+          </div> */}
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const GoodZeroNotification = () => {
+  return (
+    <section className="py-12 bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] relative overflow-hidden border-b border-blue-100/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+          
+          {/* Left Content */}
+          <div className="lg:w-1/3 space-y-6">
+            <div>
+              <p className="text-slate-600 font-medium text-lg mb-1">Introducing</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-[#1e3a8a] tracking-tight">
+                GoodZero<sup className="text-xl ml-1 font-bold">™</sup>
+              </h2>
+            </div>
+            
+            <p className="text-slate-800 font-bold text-xl leading-snug max-w-sm">
+              India's only Guaranteed Solar Savings Plan
+            </p>
+            
+            <Button className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
+              Know More about GoodZero
+            </Button>
+          </div>
+
+          {/* Middle Features Grid */}
+          <div className="lg:w-2/5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                <PiggyBank className="w-5 h-5 text-blue-600" />
+              </div>
+              <p className="text-slate-700 font-medium leading-tight">Money-back promise at Rs. 8/unit</p>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                <CreditCard className="w-5 h-5 text-blue-600" />
+              </div>
+              <p className="text-slate-700 font-medium leading-tight">Regular Proactive maintenance visits</p>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                <Settings className="w-5 h-5 text-blue-600" />
+              </div>
+              <p className="text-slate-700 font-medium leading-tight">₹0 Repair & Replacement Cost</p>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
+                <Smartphone className="w-5 h-5 text-blue-600" />
+              </div>
+              <p className="text-slate-700 font-medium leading-tight">App to track real-time power generation</p>
+            </div>
+          </div>
+
+          {/* Right Image */}
+          <div className="lg:w-1/4 flex justify-center lg:justify-end relative">
+            <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full scale-150"></div>
+            <img src="/shield_guarantee_3d.png" alt="GoodZero Guarantee" className="w-64 lg:w-80 object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
           </div>
 
         </div>
@@ -677,6 +785,7 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen relative">
       <HeroSlider />
+      <GoodZeroNotification />
       <FeaturesSection />
       <ProductsSection />
       <IndustrySection />

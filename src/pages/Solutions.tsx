@@ -45,22 +45,22 @@ const Solutions = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-slate-900/60 z-10"></div>
-          <img src="/solutions_hero.png" alt="Solar Solutions" className="w-full h-full object-cover scale-105" />
-        </div>
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
+      <section 
+        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover"
+        style={{ backgroundImage: "url('/solutions_hero.png')" }}
+      >
+        <div className="absolute inset-0 bg-slate-900/60 z-0"></div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Tailored Implementations</span>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
+            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 md:mb-4 block">Tailored Implementations</span>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 md:mb-6">
               Industry <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Solutions</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
               Whether you are powering a single home or a megawatt industrial facility, we engineer specific solutions optimized for your exact energy profile.
             </p>
           </motion.div>

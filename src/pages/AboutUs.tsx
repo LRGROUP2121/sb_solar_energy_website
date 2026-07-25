@@ -1,27 +1,34 @@
-import { Award, Target, Users, Shield, Globe, Leaf, Zap } from 'lucide-react';
+import { Award, Target, Users, Shield, Leaf, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+const TEAM_MEMBERS = [
+  { name: 'Rahul Devanda', role: 'Managing Director', initials: 'RD', desc: 'Over 20 years of visionary leadership in the sustainable energy sector.' },
+  { name: 'Rajendrasa Kudi', role: 'Chief Technical Officer', initials: 'RK', desc: 'Expert in solar PV engineering and large-scale grid integration.' },
+  { name: 'Vishal Choudhary', role: 'Head of Operations', initials: 'VC', desc: 'Ensuring seamless project execution and unmatched quality control.' },
+  { name: 'Harphool Choudhary', role: 'Customer Success Manager', initials: 'HC', desc: 'Dedicated to providing 24/7 support and ensuring complete client satisfaction.' }
+];
 
 const AboutUs = () => {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-slate-900/60 z-10"></div>
-          <img src="/about_hero.png" alt="About SB Solar Energy" className="w-full h-full object-cover scale-105" />
-        </div>
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
+      <section 
+        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover"
+        style={{ backgroundImage: "url('/about_hero.png')" }}
+      >
+        <div className="absolute inset-0 bg-slate-900/60 z-0"></div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Our Journey</span>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
-              Pioneering a Brighter, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Greener Future</span>
+            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 md:mb-4 block">Our Journey</span>
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight text-white mb-4 md:mb-6">
+              Pioneering a Brighter, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Greener Future</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
               Discover the mission, values, and relentless innovation driving SB Solar Energy to the forefront of renewable integration in India.
             </p>
           </motion.div>
@@ -29,8 +36,8 @@ const AboutUs = () => {
       </section>
 
       {/* Sleek Stats Bar */}
-      <section className="relative z-30 -mt-8 max-w-5xl mx-auto px-4 w-full">
-        <div className="bg-white rounded-xl shadow-lg shadow-slate-200/50 py-2 md:py-4 border border-slate-100 flex flex-col md:flex-row items-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
+      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-6 md:px-4 w-full">
+        <div className="bg-white rounded-xl shadow-lg shadow-slate-200/50 py-1 md:py-6 border border-slate-100 flex flex-col md:flex-row items-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
           {[
             { icon: Users, value: "1,000+", label: "Happy Clients", color: "text-blue-500" },
             { icon: Zap, value: "10MW+", label: "Energy Generated", color: "text-amber-500" },
@@ -43,7 +50,7 @@ const AboutUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="flex items-center justify-center w-full md:w-1/4 py-3 md:py-0 group"
+              className="flex items-center justify-center w-full md:w-1/4 py-2 md:py-0 group"
             >
               <stat.icon className={`h-5 w-5 md:h-6 md:w-6 ${stat.color} mr-3 group-hover:scale-110 transition-transform`} strokeWidth={2.5} />
               <div className="flex flex-col text-left justify-center">
@@ -56,9 +63,9 @@ const AboutUs = () => {
       </section>
 
       {/* Who We Are Content */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="py-6 sm:py-10 md:py-20 bg-slate-50 relative z-10">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
             
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
@@ -66,15 +73,15 @@ const AboutUs = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+              <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-slate-900 mb-4 md:mb-6">
                 Leading the Transition to <span className="text-primary">Sustainable Energy</span>
               </h2>
-              <div className="w-20 h-1.5 bg-primary rounded-full mb-8"></div>
+              <div className="w-16 md:w-20 h-1.5 bg-primary rounded-full mb-6 md:mb-8"></div>
               
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                SB Solar Energy is an <strong className="text-slate-900 font-bold">ISO 9001:2015 CERTIFIED</strong> company dedicated to engineering the most advanced solar systems in the industry. Based in the heart of India, we have built a profound reputation for integrating high-performance renewable solutions into daily life.
+              <p className="text-slate-600 text-sm md:text-base font-medium leading-relaxed mb-4 md:mb-6">
+                SB Solar Energy, a proud subsidiary of <strong className="text-primary font-bold">SB Industries</strong>, is an <strong className="text-slate-900 font-bold">ISO 9001:2015 CERTIFIED</strong> company dedicated to engineering the most advanced solar systems in the industry. Based in the heart of India, we have built a profound reputation for integrating high-performance renewable solutions into daily life.
               </p>
-              <p className="text-slate-600 text-lg leading-relaxed mb-8">
+              <p className="text-slate-600 text-sm md:text-base font-medium leading-relaxed mb-6 md:mb-8">
                 From residential rooftops to massive utility-scale solar parks, our systems are trusted by over 1,000 businesses, universities, government institutions, and families. We don't just sell panels; we deliver complete energy independence at an affordable price, ensuring long-term sustainability.
               </p>
               
@@ -99,27 +106,14 @@ const AboutUs = () => {
               className="relative"
             >
               <div className="aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden shadow-2xl border-[8px] border-white relative z-10 bg-slate-200">
-                <img src="/hero4.png" alt="Solar Team" className="w-full h-full object-cover" />
+                <img src="/about_us_solar_epic.png" alt="Solar Energy Farm Landscape" className="w-full h-full object-cover" />
               </div>
               
               {/* Decorative Elements */}
               <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-amber-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 z-0"></div>
               <div className="absolute -top-6 -right-6 w-48 h-48 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-30 z-0"></div>
               
-              {/* Floating Badge */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="absolute top-10 -left-10 bg-white p-5 rounded-2xl shadow-2xl border border-slate-100 z-20 items-center space-x-4 hidden md:flex"
-              >
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Globe className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Presence</p>
-                  <p className="text-lg font-black text-slate-900">Pan India</p>
-                </div>
-              </motion.div>
+              
             </motion.div>
 
           </div>
@@ -127,15 +121,16 @@ const AboutUs = () => {
       </section>
 
       {/* Core Values Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-10 md:py-20 bg-white relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.03]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">The Pillars of Our Success</h2>
-            <p className="text-lg text-slate-600">These core principles guide every project we undertake, ensuring maximum satisfaction for our clients and maximum benefit for the planet.</p>
+          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4">The Pillars of Our Success</h2>
+            <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
+            <p className="text-sm md:text-base text-slate-600 font-medium">These core principles guide every project we undertake, ensuring maximum satisfaction for our clients and maximum benefit for the planet.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {[
               { title: 'Our Mission', icon: Target, desc: 'To illuminate homes and businesses with clean, affordable, and sustainable energy solutions.' },
               { title: 'Our Vision', icon: Leaf, desc: 'To create a carbon-neutral world powered entirely by decentralized, renewable technology.' },
@@ -155,6 +150,37 @@ const AboutUs = () => {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
                 <p className="text-slate-600 leading-relaxed text-sm">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team Section */}
+      <section className="py-10 md:py-20 bg-slate-50 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4">Meet Our Leadership</h2>
+            <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
+            <p className="text-sm md:text-base text-slate-600 font-medium">The passionate experts and visionaries driving our mission to illuminate the world with sustainable energy.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {TEAM_MEMBERS.map((member, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="bg-white rounded-3xl p-6 text-center shadow-sm border border-slate-100 hover:shadow-xl hover:border-primary/20 transition-all duration-300 hover:-translate-y-2 group"
+              >
+                <div className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full bg-gradient-to-br from-primary to-emerald-400 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-2xl md:text-4xl font-bold text-white tracking-wider">{member.initials}</span>
+                </div>
+                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
+                <p className="text-primary font-semibold text-xs md:text-sm mb-4 uppercase tracking-wider">{member.role}</p>
+                <p className="text-slate-500 text-sm leading-relaxed">{member.desc}</p>
               </motion.div>
             ))}
           </div>

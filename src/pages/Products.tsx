@@ -75,12 +75,12 @@ const Products = () => {
                 onClick={() => navigate(`/products/${prod.id}`)}
                 className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-2xl hover:border-primary/30 transition-all duration-300 group flex flex-col h-full cursor-pointer"
               >
-                <div className="h-56 bg-slate-50/50 p-8 flex items-center justify-center relative overflow-hidden border-b border-slate-50">
+                <div className="h-60 bg-slate-50/50 p-5 flex items-center justify-center relative overflow-hidden border-b border-slate-50">
                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-300"></div>
                   <img 
                     src={prod.img} 
                     alt={prod.title} 
-                    className="max-h-full max-w-full object-contain relative z-10 group-hover:scale-110 transition-transform duration-500" 
+                    className="max-h-full max-w-full object-contain relative z-10 group-hover:scale-110 transition-transform duration-500 drop-shadow-md" 
                   />
                 </div>
                 <div className="p-8 flex-grow flex flex-col">

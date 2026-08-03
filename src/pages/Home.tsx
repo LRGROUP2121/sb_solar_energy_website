@@ -192,21 +192,24 @@ const FeaturesSection = () => {
       <AnimatedBackground />
       <div className="max-w-7xl mx-auto md:px-5 lg:px-8 relative z-10">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight mb-3 md:mb-4 flex flex-wrap justify-center items-center gap-x-2">
-            <span>Power Your Home With <span className="text-primary">Solar</span> At Zero</span>
-            <span className="relative inline-flex flex-col h-[1.2em] overflow-hidden min-w-[140px] md:min-w-[300px] text-left">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  key={wordIndex}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="bg-gradient-to-r from-blue-600 via-indigo-500 to-green-500 bg-clip-text text-transparent block absolute inset-0"
-                >
-                  {rotatingWords[wordIndex]}
-                </motion.span>
-              </AnimatePresence>
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight mb-3 md:mb-4 flex flex-wrap justify-center items-center gap-x-2 leading-tight">
+            <span>Power Your Home With <span className="text-primary">Solar</span> At</span>
+            <span className="inline-flex items-center">
+              <span className="mr-2">Zero</span>
+              <span className="relative inline-block h-[1.2em] w-[140px] md:w-[270px] overflow-hidden text-left align-bottom">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="bg-gradient-to-r from-blue-600 via-indigo-500 to-green-500 bg-clip-text text-transparent absolute inset-0 whitespace-nowrap pt-[0.01em]"
+                  >
+                    {rotatingWords[wordIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
             </span>
           </h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mt-2"></div>

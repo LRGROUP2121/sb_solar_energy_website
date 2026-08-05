@@ -1,3 +1,4 @@
+import AnimatedBackground from '../components/AnimatedBackground';
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import { productsData } from '../data/products';
 import { ArrowLeft, Cpu, Settings } from 'lucide-react';
@@ -25,7 +26,8 @@ const ProductDetail = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
 
       {/* Hero Section */}
-      <section className="relative pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden bg-[#050b14]">
+      <section className="relative pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden bg-[#050b14] z-10">
+      <AnimatedBackground />
         {/* Deep background mesh/glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-900/10 via-[#050b14] to-[#050b14] pointer-events-none"></div>
         
@@ -104,10 +106,10 @@ const ProductDetail = () => {
           <div className="relative w-full max-w-5xl mx-auto h-[450px] md:h-[600px] flex items-center justify-center -mt-12 md:-mt-28 lg:-mt-36">
             
             {/* Background Glows */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[450px] md:h-[450px] bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[300px] aspect-square md:w-[450px] md:h-[450px] bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none"></div>
 
             {/* Orbit Rings Container with Ring-Attached Right Items */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full border border-slate-700/50 flex items-center justify-center bg-[#0a1220]/50 shadow-inner">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[300px] aspect-square md:w-[500px] md:h-[500px] rounded-full border border-slate-700/50 flex items-center justify-center bg-[#0a1220]/50 shadow-inner">
               
               {/* Spinning Ring 1 (Bright Cyan with Orbiting Beacon) */}
               <motion.div 
@@ -137,8 +139,8 @@ const ProductDetail = () => {
                 transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 className={`relative z-20 flex items-center justify-center pointer-events-none w-auto ${
                   product.id === 'accessories'
-                    ? 'h-[260px] md:h-[340px] lg:h-[380px] max-w-[240px] md:max-w-[320px]'
-                    : 'h-[420px] md:h-[580px] lg:h-[660px] max-w-[320px] md:max-w-[420px] lg:max-w-[460px]'
+                    ? 'h-[240px] md:h-[340px] lg:h-[380px] max-w-[220px] md:max-w-[320px]'
+                    : 'h-[260px] sm:h-[320px] md:h-[580px] lg:h-[660px] max-w-[240px] sm:max-w-[280px] md:max-w-[420px] lg:max-w-[460px]'
                 }`}
               >
                 <img 
@@ -351,7 +353,8 @@ const ProductDetail = () => {
       </section>
 
       {/* Content Section */}
-      {/* <section className="py-12 md:py-16 bg-white">
+      {/* <section className="py-12 md:py-16 bg-white relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             

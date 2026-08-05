@@ -1,5 +1,6 @@
-import { MapPin, Phone, Mail, Clock, Search, Frown, ChevronDown, LayoutGrid, List } from 'lucide-react';
-import { motion } from 'framer-motion';
+import AnimatedBackground from '../components/AnimatedBackground';
+import { MapPin, Phone, Mail, Clock, Search, Frown, ChevronDown, LayoutGrid, List, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../components/ui/Button';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -20,6 +21,49 @@ const Contact = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Contact Form State
+  const [contactData, setContactData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
+
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setContactData({ ...contactData, [e.target.id]: e.target.value });
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "ab13e878-4fba-4132-8d33-c8532b57020a", 
+          subject: contactData.subject || "New Contact Form Submission",
+          from_name: "SB Solar Website",
+          "Sender Name": contactData.name,
+          "Sender Email": contactData.email,
+          "Message": contactData.message,
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSubmitStatus('success');
+        setStatusMessage("Message sent successfully! Our team will contact you shortly.");
+        setContactData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setStatusMessage("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setStatusMessage("Error sending message. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    }
+  };
   const filteredVendors = DUMMY_VENDORS.filter(vendor => {
     const q = searchQuery.toLowerCase();
     return (
@@ -34,13 +78,13 @@ const Contact = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Page Header */}
-      <section 
-        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-cover"
+      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-cover overflow-hidden z-10"
         style={{
           backgroundImage: "url('/contact_hero.png')",
           backgroundPosition: "center 70%" 
         }}
       >
+      <AnimatedBackground />
         <div className="absolute inset-0 bg-slate-900/75 z-0"></div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
@@ -80,7 +124,8 @@ const Contact = () => {
       </div>
 
       {activeTab === 'contact' ? (
-        <section className="py-20 bg-slate-50">
+        <section className="py-20 bg-slate-50 relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             
@@ -147,29 +192,59 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-full">
+            <div className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-full relative">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">Send a Message</h2>
-              <form className="space-y-6 flex flex-col flex-grow" onSubmit={(e) => e.preventDefault()}>
+              
+              <AnimatePresence>
+                {submitStatus !== 'idle' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    className={`mb-6 p-4 rounded-xl border flex items-start space-x-3 ${
+                      submitStatus === 'success' 
+                        ? 'bg-green-50 border-green-200 text-green-800' 
+                        : 'bg-red-50 border-red-200 text-red-800'
+                    }`}
+                  >
+                    {submitStatus === 'success' ? (
+                      <CheckCircle className="h-5 w-5 shrink-0 mt-0.5 text-green-600" />
+                    ) : (
+                      <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-red-600" />
+                    )}
+                    <div>
+                      <h4 className={`font-bold ${submitStatus === 'success' ? 'text-green-900' : 'text-red-900'}`}>
+                        {submitStatus === 'success' ? 'Success!' : 'Oops!'}
+                      </h4>
+                      <p className="text-sm mt-0.5 opacity-90">{statusMessage}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <form className="space-y-6 flex flex-col flex-grow" onSubmit={handleContactSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Your Name</label>
-                    <input type="text" id="name" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" placeholder="John Doe" />
+                    <input type="text" id="name" required value={contactData.name} onChange={handleContactChange} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" placeholder="John Doe" />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Your Email</label>
-                    <input type="email" id="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" placeholder="john@example.com" />
+                    <input type="email" id="email" required value={contactData.email} onChange={handleContactChange} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" placeholder="john@example.com" />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">Subject</label>
-                  <input type="text" id="subject" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" placeholder="How can we help?" />
+                  <input type="text" id="subject" value={contactData.subject} onChange={handleContactChange} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" placeholder="How can we help?" />
                 </div>
                 <div className="flex-grow">
                   <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                  <textarea id="message" className="w-full h-[150px] md:h-[calc(100%-2rem)] px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow resize-none" placeholder="Your message here..."></textarea>
+                  <textarea id="message" required value={contactData.message} onChange={handleContactChange} className="w-full h-[150px] md:h-[calc(100%-2rem)] px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow resize-none" placeholder="Your message here..."></textarea>
                 </div>
                 <div className="mt-auto pt-4">
-                  <Button type="submit" className="w-full h-14 text-lg">Send Message</Button>
+                  <Button type="submit" disabled={isSubmitting} className="w-full h-14 text-lg">
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </Button>
                 </div>
               </form>
             </div>
@@ -178,7 +253,8 @@ const Contact = () => {
         </div>
       </section>
       ) : (
-      <section className="py-20 bg-white border-t border-slate-200">
+      <section className="py-20 bg-white border-t border-slate-200 relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             
@@ -252,7 +328,7 @@ const Contact = () => {
 
                   <div className="relative z-10 flex flex-col items-center mt-8">
                     {/* Browser window illustration */}
-                    <div className="w-[320px] h-[220px] bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden flex flex-col relative">
+                    <div className="w-full max-w-[320px] h-[220px] bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden flex flex-col relative">
                       {/* Browser top bar */}
                       <div className="h-7 bg-[#b4c4f9] w-full flex items-center px-3 space-x-1.5">
                         <div className="w-2 h-2 rounded-full bg-white/80"></div>

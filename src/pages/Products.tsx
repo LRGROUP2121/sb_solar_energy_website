@@ -1,3 +1,4 @@
+import AnimatedBackground from '../components/AnimatedBackground';
 import { ArrowRight, Download, Zap, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
@@ -19,10 +20,10 @@ const Products = () => {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       {/* Hero Section */}
-      <section 
-        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover"
+      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
         style={{ backgroundImage: "url('/products_hero.png')" }}
       >
+      <AnimatedBackground />
         <div className="absolute inset-0 bg-slate-900/70 z-0"></div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
@@ -42,7 +43,8 @@ const Products = () => {
       </section>
 
       {/* Benefits Bar */}
-      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-4 w-full">
+      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-4 w-full overflow-hidden">
+      <AnimatedBackground />
         <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 border border-slate-100 flex flex-wrap justify-center md:justify-between items-center gap-6">
           <div className="flex items-center space-x-3">
             <Zap className="h-6 w-6 text-amber-500" />
@@ -62,7 +64,8 @@ const Products = () => {
       </section>
 
       {/* Catalog Grid */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {products.map((prod, i) => (

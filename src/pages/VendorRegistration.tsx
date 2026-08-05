@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Building2, User, Mail, Phone, MapPin, Send, Briefcase } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Building2, User, Mail, Phone, MapPin, Send, Briefcase, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 const VendorRegistration = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ const VendorRegistration = () => {
     businessType: 'dealer',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +34,7 @@ const VendorRegistration = () => {
         },
         body: JSON.stringify({
           // Replace this with your actual Web3Forms Access Key
-          access_key: "YOUR_ACCESS_KEY_HERE", 
+          access_key: "ab13e878-4fba-4132-8d33-c8532b57020a", 
           subject: "New Dealer & Channel Partner Enrollment",
           from_name: "SB Solar Website",
           "Company Name": formData.companyName,
@@ -46,7 +49,8 @@ const VendorRegistration = () => {
       const result = await response.json();
 
       if (result.success) {
-        alert("Enrollment application submitted successfully! Our team will contact you shortly.");
+        setSubmitStatus('success');
+        setStatusMessage("Enrollment application submitted successfully! Our team will contact you shortly.");
         // Reset form
         setFormData({
           companyName: '',
@@ -57,19 +61,24 @@ const VendorRegistration = () => {
           businessType: 'dealer',
         });
       } else {
-        alert("Something went wrong submitting the form. Please try again.");
+        setSubmitStatus('error');
+        setStatusMessage("Something went wrong submitting the form. Please try again.");
         console.error(result);
       }
     } catch (error) {
-      alert("Error submitting form. Please check your internet connection.");
+      setSubmitStatus('error');
+      setStatusMessage("Error submitting form. Please check your internet connection.");
       console.error(error);
     } finally {
       setIsSubmitting(false);
+      // Auto hide the message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen pt-24 pb-12 bg-slate-50 relative overflow-hidden">
+      <AnimatedBackground />
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-96 bg-primary/5 -skew-y-6 transform origin-top-left -z-10"></div>
       
@@ -93,8 +102,35 @@ const VendorRegistration = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-8 md:p-10"
+          className="bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-8 md:p-10 relative"
         >
+          <AnimatePresence>
+            {submitStatus !== 'idle' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                className={`mb-6 p-4 rounded-xl border flex items-start space-x-3 ${
+                  submitStatus === 'success' 
+                    ? 'bg-green-50 border-green-200 text-green-800' 
+                    : 'bg-red-50 border-red-200 text-red-800'
+                }`}
+              >
+                {submitStatus === 'success' ? (
+                  <CheckCircle className="h-5 w-5 shrink-0 mt-0.5 text-green-600" />
+                ) : (
+                  <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-red-600" />
+                )}
+                <div>
+                  <h4 className={`font-bold ${submitStatus === 'success' ? 'text-green-900' : 'text-red-900'}`}>
+                    {submitStatus === 'success' ? 'Success!' : 'Oops!'}
+                  </h4>
+                  <p className="text-sm mt-0.5 opacity-90">{statusMessage}</p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,12 +1,8 @@
 import AnimatedBackground from '../components/AnimatedBackground';
 import { Settings, Wrench as Tools, Activity, ShieldCheck, Zap, PenTool } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button } from '../components/ui/Button';
-import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
-  const navigate = useNavigate();
-  
   const services = [
     {
       title: 'Solar Consultation',

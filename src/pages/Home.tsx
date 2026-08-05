@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone, X } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 const HERO_SLIDES = [
   {
@@ -120,43 +121,6 @@ const HeroSlider = () => {
 
 
 
-const AnimatedBackground = () => {
-  const particles = Array.from({ length: 40 }).map((_, i) => ({
-    id: i,
-    size: Math.random() * 6 + 2,
-    left: `${Math.random() * 100}%`,
-    duration: Math.random() * 20 + 15,
-    delay: Math.random() * -20,
-  }));
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Static subtle grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(#10b981_1.5px,transparent_1.5px)] [background-size:30px_30px] opacity-[0.08]" />
-      
-      {/* Floating dots */}
-      {particles.map(p => (
-        <motion.div
-          key={p.id}
-          className="absolute bg-primary rounded-full"
-          style={{ width: p.size, height: p.size, left: p.left, top: '100%' }}
-          animate={{
-            y: [0, -1000], // Moves up by 1000px
-            x: [0, Math.random() * 100 - 50, 0],
-            opacity: [0, 0.8, 0]
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            delay: p.delay,
-            ease: "linear"
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 const FeaturesSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [wordIndex, setWordIndex] = useState(0);
@@ -192,21 +156,24 @@ const FeaturesSection = () => {
       <AnimatedBackground />
       <div className="max-w-7xl mx-auto md:px-5 lg:px-8 relative z-10">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight mb-3 md:mb-4 flex flex-wrap justify-center items-center gap-x-2">
-            <span>Power Your Home With <span className="text-primary">Solar</span> At Zero</span>
-            <span className="relative inline-flex flex-col h-[1.2em] overflow-hidden min-w-[140px] md:min-w-[300px] text-left">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  key={wordIndex}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="bg-gradient-to-r from-blue-600 via-indigo-500 to-green-500 bg-clip-text text-transparent block absolute inset-0"
-                >
-                  {rotatingWords[wordIndex]}
-                </motion.span>
-              </AnimatePresence>
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight mb-3 md:mb-4 flex flex-wrap justify-center items-center gap-x-2 leading-tight">
+            <span>Power Your Home With <span className="text-primary">Solar</span> At</span>
+            <span className="inline-flex items-center">
+              <span className="mr-2">Zero</span>
+              <span className="relative inline-block h-[1.2em] w-[140px] md:w-[270px] overflow-hidden text-left align-bottom">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="bg-gradient-to-r from-blue-600 via-indigo-500 to-green-500 bg-clip-text text-transparent absolute inset-0 whitespace-nowrap pt-[0.01em]"
+                  >
+                    {rotatingWords[wordIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
             </span>
           </h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mt-2"></div>
@@ -731,7 +698,7 @@ const GoodZeroNotification = () => {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          className="relative w-full max-w-5xl bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] rounded-2xl shadow-2xl overflow-hidden border border-blue-100 p-8 lg:p-12"
+          className="relative w-full max-w-5xl bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] rounded-2xl shadow-2xl border border-blue-100 p-6 sm:p-8 lg:p-12 max-h-[90vh] overflow-y-auto"
         >
           <button 
             onClick={() => setIsVisible(false)}
@@ -740,7 +707,7 @@ const GoodZeroNotification = () => {
             <X className="w-5 h-5" />
           </button>
           
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10 mt-2 sm:mt-0">
             
             {/* Left Content */}
             <div className="lg:w-1/3 space-y-6">
@@ -755,13 +722,13 @@ const GoodZeroNotification = () => {
                 India's only Guaranteed Solar Savings Plan
               </p>
               
-              <Button className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-6 text-lg rounded-xl w-full sm:w-auto">
+              <Button className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-xl w-full sm:w-auto">
                 Know More about GoodZero
               </Button>
             </div>
 
             {/* Middle Features Grid */}
-            <div className="lg:w-2/5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+            <div className="lg:w-2/5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 sm:gap-y-10">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
                   <PiggyBank className="w-5 h-5 text-blue-600" />
@@ -794,7 +761,7 @@ const GoodZeroNotification = () => {
             {/* Right Image */}
             <div className="lg:w-1/4 flex justify-center lg:justify-end relative">
               <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full scale-150"></div>
-              <img src="/shield_guarantee_3d.png" alt="GoodZero Guarantee" className="w-48 lg:w-64 object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
+              <img src="/shield_guarantee_3d.png" alt="GoodZero Guarantee" className="w-32 sm:w-48 lg:w-64 object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
             </div>
 
           </div>

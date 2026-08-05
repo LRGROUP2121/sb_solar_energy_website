@@ -1,3 +1,4 @@
+import AnimatedBackground from '../components/AnimatedBackground';
 import { Home, Factory, Building2, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/Button';
@@ -45,10 +46,10 @@ const Solutions = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section 
-        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover"
+      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
         style={{ backgroundImage: "url('/solutions_hero.png')" }}
       >
+      <AnimatedBackground />
         <div className="absolute inset-0 bg-slate-900/60 z-0"></div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
@@ -68,7 +69,8 @@ const Solutions = () => {
       </section>
 
       {/* Solutions Feed */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-24 bg-white relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="space-y-24">

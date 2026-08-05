@@ -1,11 +1,8 @@
+import AnimatedBackground from '../components/AnimatedBackground';
 import { Settings, Wrench as Tools, Activity, ShieldCheck, Zap, PenTool } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button } from '../components/ui/Button';
-import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
-  const navigate = useNavigate();
-  
   const services = [
     {
       title: 'Solar Consultation',
@@ -43,13 +40,13 @@ const Services = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section 
-        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-cover"
+      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-cover overflow-hidden z-10"
         style={{ 
           backgroundImage: "url('/services_hero.png')",
           backgroundPosition: "center 40%" 
         }}
       >
+      <AnimatedBackground />
         <div className="absolute inset-0 bg-slate-900/75 z-0"></div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
@@ -69,7 +66,8 @@ const Services = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-24 bg-white relative overflow-hidden z-10">
+      <AnimatedBackground />
         {/* Subtle background pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50"></div>
         
@@ -101,7 +99,8 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-slate-900 relative overflow-hidden">
+      {/* <section className="py-20 bg-slate-900 relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
         
@@ -114,7 +113,7 @@ const Services = () => {
             Book a Free Consultation
           </Button>
         </div>
-      </section>
+      </section> */}
 
     </div>
   );

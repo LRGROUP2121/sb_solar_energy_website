@@ -1,3 +1,4 @@
+import AnimatedBackground from '../components/AnimatedBackground';
 import { Award, Target, Users, Shield, Leaf, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -13,10 +14,10 @@ const AboutUs = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section 
-        className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover"
+      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
         style={{ backgroundImage: "url('/about_hero.png')" }}
       >
+      <AnimatedBackground />
         <div className="absolute inset-0 bg-slate-900/60 z-0"></div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
           <motion.div
@@ -36,7 +37,8 @@ const AboutUs = () => {
       </section>
 
       {/* Sleek Stats Bar */}
-      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-6 md:px-4 w-full">
+      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-6 md:px-4 w-full overflow-hidden">
+      <AnimatedBackground />
         <div className="bg-white rounded-xl shadow-lg shadow-slate-200/50 py-1 md:py-6 border border-slate-100 flex flex-col md:flex-row items-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
           {[
             { icon: Users, value: "1,000+", label: "Happy Clients", color: "text-blue-500" },
@@ -63,7 +65,8 @@ const AboutUs = () => {
       </section>
 
       {/* Who We Are Content */}
-      <section className="py-6 sm:py-10 md:py-20 bg-slate-50 relative z-10">
+      <section className="py-6 sm:py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
             
@@ -122,6 +125,7 @@ const AboutUs = () => {
 
       {/* Core Values Section */}
       <section className="py-10 md:py-20 bg-white relative overflow-hidden z-10">
+      <AnimatedBackground />
         <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.03]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
@@ -157,7 +161,8 @@ const AboutUs = () => {
       </section>
 
       {/* Our Team Section */}
-      <section className="py-10 md:py-20 bg-slate-50 relative z-10">
+      <section className="py-10 md:py-20 bg-slate-50 relative z-10 overflow-hidden">
+      <AnimatedBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
             <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4">Meet Our Leadership</h2>

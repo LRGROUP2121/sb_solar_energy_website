@@ -39,7 +39,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 500000);
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
@@ -77,7 +77,7 @@ const HeroSlider = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-4xl text-center mx-auto"
             >
-              <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg uppercase">
+              <h1 className="text-2xl md:text-3xl lg:text-5xl font-serif font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg uppercase">
                 {HERO_SLIDES[currentSlide].title}
               </h1>
               <p className="text-sm md:text-lg lg:text-xl text-yellow-400 mb-10 font-light drop-shadow-md">
@@ -775,7 +775,7 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen relative">
       <HeroSlider />
-      <GoodZeroNotification />
+      {/* <GoodZeroNotification /> */}
       <FeaturesSection />
       <ProductsSection />
       <IndustrySection />

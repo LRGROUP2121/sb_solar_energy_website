@@ -27,6 +27,7 @@ const NAV_LINKS = [
  const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isPortalDropdownOpen, setIsPortalDropdownOpen] = useState(false);
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
 
@@ -34,6 +35,7 @@ const NAV_LINKS = [
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        setIsPortalDropdownOpen(false);
       }
     };
 
@@ -101,6 +103,30 @@ const NAV_LINKS = [
                 )}
               </div>
             ))}
+          </div>
+          
+          <div className="hidden md:flex items-center ml-4 relative">
+             <button 
+                onClick={() => setIsPortalDropdownOpen(!isPortalDropdownOpen)}
+                className="bg-primary text-white px-5 py-2 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2"
+             >
+                Portal Login <ChevronDown className={cn("h-4 w-4 transition-transform duration-300", isPortalDropdownOpen && "rotate-180")} />
+             </button>
+             
+             {/* Dropdown Menu */}
+             <div className={cn(
+                "absolute right-0 top-full -mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 transform origin-top-right overflow-hidden",
+                isPortalDropdownOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"
+             )}>
+                <div className="py-1">
+                  <Link to="/admin/dashboard" onClick={() => setIsPortalDropdownOpen(false)} className="block px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
+                    Admin / Staff Login
+                  </Link>
+                  <Link to="/portal/dashboard" onClick={() => setIsPortalDropdownOpen(false)} className="block px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary border-t border-slate-100 transition-colors">
+                    Customer Login
+                  </Link>
+                </div>
+             </div>
           </div>
 
           {/* Mobile menu button */}

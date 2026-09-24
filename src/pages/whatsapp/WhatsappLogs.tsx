@@ -1,4 +1,4 @@
-import { ArrowLeft, MessageSquare, Clock } from 'lucide-react';
+import { ArrowLeft, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const WhatsappLogs = () => {

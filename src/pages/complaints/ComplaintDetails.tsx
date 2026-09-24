@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Clock, MessageCircle, FileText, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Clock, MessageCircle, FileText } from 'lucide-react';
 
 const ComplaintDetails = () => {
   const { id } = useParams();

@@ -10,6 +10,7 @@ import Services from './pages/Services';
 import Solutions from './pages/Solutions';
 import Contact from './pages/Contact';
 import VendorRegistration from './pages/VendorRegistration';
+import SbSolarProtection from './pages/SbSolarProtection';
 
 // Portal & Admin Pages
 import ComplaintLogin from './pages/complaints/Login';
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/vendor-registration" element={<VendorRegistration />} />
+          <Route path="/sb-solar-protection" element={<SbSolarProtection />} />
           <Route path="*" element={<Home />} />
         </Route>
 

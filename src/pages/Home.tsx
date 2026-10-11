@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone, X } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone, X, HelpCircle, ChevronDown } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedBackground from '../components/AnimatedBackground';
@@ -77,10 +77,10 @@ const HeroSlider = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-4xl text-center mx-auto"
             >
-              <h1 className="text-2xl md:text-3xl lg:text-5xl font-serif font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg uppercase">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-6 text-white leading-tight drop-shadow-lg uppercase">
                 {HERO_SLIDES[currentSlide].title}
               </h1>
-              <p className="text-sm md:text-lg lg:text-xl text-yellow-400 mb-10 font-light drop-shadow-md">
+              <p className="text-base sm:text-lg md:text-xl text-yellow-400 mb-8 md:mb-10 font-medium drop-shadow-md max-w-3xl mx-auto">
                 {HERO_SLIDES[currentSlide].subtitle}
               </p>
               <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
@@ -732,6 +732,130 @@ const SBSolarProtectionNotification = () => {
   );
 };
 
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const navigate = useNavigate();
+
+  const faqs = [
+    {
+      q: "PM Surya Ghar Muft Bijli Yojana me kitni subsidy milti hai?",
+      a: "Central Government PM Surya Ghar scheme ke tehat 1 kW solar rooftop system par ₹30,000, 2 kW system par ₹60,000 aur 3 kW ya usse upar ke systems par flat ₹78,000 direct bank transfer subsidy provide karti hai. SB Solar Energy aapka poora DISCOM net metering aur portal paperwork handle karti hai."
+    },
+    {
+      q: "Kya rooftop solar lagwane ke liye 100% EMI / loan option available hai?",
+      a: "Haan! SB Solar Energy nationalized banks aur certified NBFCs ke sath milkar 6% se 7% starting interest rate par collateral-free solar financing provide karti hai. Isme zero down-payment option bhi available hai, jaha aapki electricity bill ki bachat se hi monthly EMI cover ho jaati hai."
+    },
+    {
+      q: "Solar system lagane ke baad mera bijli ka bill kitna kam hoga?",
+      a: "Ek standard on-grid solar system aapke bijli ke bill ko upar se 80% se 90% tak reduce kar deta hai. Din ke time jo extra bijli banti hai, woh bi-directional net meter ke through DISCOM grid ko feed hoti hai, jiska credit aapke monthly bill me adjust hota hai."
+    },
+    {
+      q: "Solar panels ki warranty aur service support kya hai?",
+      a: "Hum Tier-1 Monocrystalline Bifacial solar modules use karte hain jin par 25-30 saal ki 80%+ linear performance warranty aur inverters par 5-10 saal ki replacement warranty milti hai. Saath hi, SB Solar Protection ke tehat regular maintenance aur 24x7 IoT app monitoring provide ki jaati hai."
+    },
+    {
+      q: "Installation me kitna time lagta hai?",
+      a: "Site survey aur engineering structural audit ke baad physical rooftop installation 2 se 3 din me poori ho jaati hai. DISCOM approval aur net meter inspection me aamtaur par 7 se 15 din ka samay lagta hai, jisme hamari technical team end-to-end assist karti hai."
+    },
+    {
+      q: "Kya cloudy ya barish ke dino me bhi solar kaam karta hai?",
+      a: "Haan, modern Tier-1 mono PERC panels diffused sunlight (badal wale din) me bhi 25% se 40% electricity generate karte hain. Raat ke time aap regular DISCOM grid supply use karte hain jo din ki surplus generation se balance ho jaati hai."
+    }
+  ];
+
+  return (
+    <section className="py-14 sm:py-20 bg-slate-50 relative z-10 overflow-hidden border-t border-slate-200/80">
+      <AnimatedBackground />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <span className="text-primary font-bold text-xs uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+            <HelpCircle className="w-3.5 h-3.5" /> Frequently Asked Questions
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Frequently Asked <span className="text-primary">Questions</span>
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base mt-2">
+            Rooftop solar, PM Surya Ghar central subsidy aur EMI plans se jude sabhi aam sawalo ke jawab yaha payein.
+          </p>
+        </div>
+
+        {/* FAQ Accordion List */}
+        <div className="space-y-3.5">
+          {faqs.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div
+                key={idx}
+                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                  isOpen 
+                    ? 'border-primary/50 shadow-md ring-2 ring-primary/5' 
+                    : 'border-slate-200/80 hover:border-slate-300 shadow-xs'
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : idx)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
+                >
+                  <span className={`text-sm sm:text-base font-bold transition-colors ${
+                    isOpen ? 'text-primary' : 'text-slate-900'
+                  }`}>
+                    {faq.q}
+                  </span>
+                  <div className={`p-1.5 rounded-xl transition-all duration-200 shrink-0 ${
+                    isOpen ? 'bg-primary text-white rotate-180' : 'bg-slate-100 text-slate-500'
+                  }`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </button>
+
+                {isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0"
+                  >
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal border-t border-slate-100 pt-3">
+                      {faq.a}
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Helper Bar */}
+        <div className="mt-8 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg border border-slate-700">
+          <div>
+            <div className="text-sm font-bold text-white">Have more questions about your rooftop?</div>
+            <div className="text-xs text-slate-300 mt-0.5">Our solar technical consultants are ready to assist with free rooftop feasibility assessment.</div>
+          </div>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={() => navigate('/emi-solar-plan')}
+              className="bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm"
+            >
+              Calculate EMI
+            </button>
+            <button
+              onClick={() => navigate('/contact')}
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+            >
+              Contact Support
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen relative">
@@ -743,6 +867,7 @@ const Home = () => {
       <WhyChooseUsSection />
       <TestimonialsSection />
       <BrandsSection />
+      <FAQSection />
       <CTASection />
     </div>
   );

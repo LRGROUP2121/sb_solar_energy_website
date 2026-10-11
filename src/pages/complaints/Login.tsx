@@ -1,28 +1,66 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Mail, Lock, LogIn, ArrowRight } from 'lucide-react';
+import { Mail, Lock, LogIn, AlertCircle, ShieldCheck, KeyRound } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ComplaintLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [searchParams] = useSearchParams();
   const initialRole = (searchParams.get('role') === 'admin') ? 'admin' : 'customer';
   const [loginRole, setLoginRole] = useState<'customer' | 'admin'>(initialRole);
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  // Hardcoded secure credentials for demo / restricted access
+  const CREDENTIALS = {
+    admin: {
+      email: 'admin@sbsolar.com',
+      password: 'admin#123'
+    },
+    customer: {
+      email: 'customer@sbsolar.com',
+      password: 'customer#123'
+    }
+  };
+
+  const handleRoleChange = (role: 'customer' | 'admin') => {
+    setLoginRole(role);
+    setError('');
+  };
+
+  const handleAutoFill = (role: 'customer' | 'admin') => {
+    setLoginRole(role);
+    setEmail(CREDENTIALS[role].email);
+    setPassword(CREDENTIALS[role].password);
+    setError('');
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login and redirect based on role
-    if (loginRole === 'admin') {
-      navigate('/admin/dashboard');
+    setError('');
+
+    const targetCreds = CREDENTIALS[loginRole];
+
+    if (email.trim().toLowerCase() === targetCreds.email.toLowerCase() && password === targetCreds.password) {
+      // Set auth in localStorage
+      localStorage.setItem('sb_auth_token', 'active_authenticated_session');
+      localStorage.setItem('sb_user_role', loginRole);
+      localStorage.setItem('sb_user_email', email);
+
+      if (loginRole === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/portal/dashboard');
+      }
     } else {
-      navigate('/portal/dashboard');
+      setError(`Invalid credentials for ${loginRole === 'admin' ? 'Admin' : 'Customer'} portal. Please check email and password.`);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
       {/* Decorative Background Elements */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
@@ -30,42 +68,55 @@ const ComplaintLogin = () => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full space-y-8 bg-white p-8 md:p-10 rounded-2xl shadow-xl z-10 border border-slate-100"
+        className="max-w-md w-full space-y-6 bg-white p-8 md:p-10 rounded-3xl shadow-xl z-10 border border-slate-100"
       >
         <div className="text-center">
-          <h2 className="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight">
-            {loginRole === 'customer' ? 'Customer Portal' : 'Admin Portal'}
+          <div className="inline-flex p-3 rounded-2xl bg-primary/10 text-primary mb-3">
+            <ShieldCheck className="w-8 h-8" />
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            {loginRole === 'customer' ? 'Customer Portal Login' : 'Admin Control Center'}
           </h2>
-          <p className="mt-2 text-sm text-slate-600">
-            {loginRole === 'customer' ? 'Sign in to manage your complaints and services' : 'Sign in to access admin control center'}
+          <p className="mt-1.5 text-xs sm:text-sm text-slate-600">
+            Protected live access. Enter authorized credentials to proceed.
           </p>
         </div>
 
         {/* Role Toggle Tabs */}
-        <div className="flex bg-slate-100 p-1 rounded-xl">
+        <div className="flex bg-slate-100 p-1.5 rounded-2xl">
           <button
             type="button"
-            onClick={() => setLoginRole('customer')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+            onClick={() => handleRoleChange('customer')}
+            className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer ${
               loginRole === 'customer' 
                 ? 'bg-white text-primary shadow-sm' 
-                : 'text-slate-500 hover:text-slate-700'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            Customer
+            Customer Portal
           </button>
           <button
             type="button"
-            onClick={() => setLoginRole('admin')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+            onClick={() => handleRoleChange('admin')}
+            className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer ${
               loginRole === 'admin' 
                 ? 'bg-white text-primary shadow-sm' 
-                : 'text-slate-500 hover:text-slate-700'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             Admin / Staff
           </button>
         </div>
+
+        {/* Error Alert */}
+        {error && (
+          <div className="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-xl text-xs flex items-start gap-2.5">
+            <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <strong>Access Denied:</strong> {error}
+            </div>
+          </div>
+        )}
         
         <form className="mt-6 space-y-6" onSubmit={handleLogin}>
           <div className="space-y-4">
@@ -136,37 +187,54 @@ const ComplaintLogin = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-md hover:shadow-lg"
+              className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-md hover:shadow-lg cursor-pointer"
             >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <LogIn className="h-5 w-5 text-white/70 group-hover:text-white transition-colors" />
+              <span className="absolute left-0 inset-y-0 flex items-center pl-3.5">
+                <LogIn className="h-5 w-5 text-white/80 group-hover:text-white transition-colors" />
               </span>
-              Sign In
+              Sign In to {loginRole === 'admin' ? 'Admin Panel' : 'Customer Portal'}
             </button>
           </div>
         </form>
 
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-slate-500">
-                Don't have an account?
-              </span>
-            </div>
+        {/* Demo Quick-Fill Credentials Helper Box */}
+        <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 text-xs space-y-2.5">
+          <div className="flex items-center justify-between text-slate-700 font-bold">
+            <span className="flex items-center gap-1.5">
+              <KeyRound className="w-3.5 h-3.5 text-amber-500" /> Authorized Demo Credentials
+            </span>
+            <span className="text-[10px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full font-semibold">
+              Live Protection Active
+            </span>
           </div>
 
-          <div className="mt-6 text-center">
-            <Link
-              to="/portal/register"
-              className="w-full inline-flex justify-center items-center py-3 px-4 border border-slate-300 rounded-lg shadow-sm bg-white text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all group"
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <button
+              type="button"
+              onClick={() => handleAutoFill('admin')}
+              className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-left transition-all cursor-pointer"
             >
-              Create new account
-              <ArrowRight className="ml-2 h-4 w-4 text-slate-400 group-hover:text-primary transition-colors" />
-            </Link>
+              <div className="font-bold text-slate-800 text-[11px]">🔐 Admin Role</div>
+              <div className="text-[10px] text-slate-500 truncate">admin@sbsolar.com</div>
+              <div className="text-[10px] text-primary font-semibold mt-0.5">Click to Fill</div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleAutoFill('customer')}
+              className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-left transition-all cursor-pointer"
+            >
+              <div className="font-bold text-slate-800 text-[11px]">👤 Customer Role</div>
+              <div className="text-[10px] text-slate-500 truncate">customer@sbsolar.com</div>
+              <div className="text-[10px] text-primary font-semibold mt-0.5">Click to Fill</div>
+            </button>
           </div>
+        </div>
+
+        <div className="text-center">
+          <Link to="/" className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors">
+            ← Return to Main Website
+          </Link>
         </div>
       </motion.div>
     </div>

@@ -45,13 +45,19 @@ const AdminLayout = () => {
         </nav>
         
         <div className="p-4 border-t border-indigo-900/50">
-          <Link 
-            to="/"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-indigo-900 hover:text-white transition-all w-full"
+          <button 
+            type="button"
+            onClick={() => {
+              localStorage.removeItem('sb_auth_token');
+              localStorage.removeItem('sb_user_role');
+              localStorage.removeItem('sb_user_email');
+              window.location.href = '/';
+            }}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-indigo-900 hover:text-white transition-all w-full cursor-pointer"
           >
             <LogOut className="h-5 w-5" />
-            <span className="font-medium">Exit Admin</span>
-          </Link>
+            <span className="font-medium">Exit / Logout Admin</span>
+          </button>
         </div>
       </aside>
 

@@ -56,8 +56,8 @@ const AboutUs = () => {
             >
               <stat.icon className={`h-5 w-5 md:h-6 md:w-6 ${stat.color} mr-3 group-hover:scale-110 transition-transform`} strokeWidth={2.5} />
               <div className="flex flex-col text-left justify-center">
-                <span className="font-bold text-sm md:text-base text-slate-900 leading-tight">{stat.value}</span>
-                <span className="font-semibold text-[10px] md:text-[11px] text-slate-500 uppercase tracking-wider leading-none mt-0.5">{stat.label}</span>
+                <span className="font-bold text-base md:text-lg text-slate-900 leading-tight">{stat.value}</span>
+                <span className="font-semibold text-xs text-slate-500 uppercase tracking-wider leading-none mt-1">{stat.label}</span>
               </div>
             </motion.div>
           ))}

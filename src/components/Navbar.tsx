@@ -81,21 +81,21 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
             {NAV_LINKS.map((link) => (
               <div key={link.name} className="relative group">
                 <Link
                   to={link.path}
                   className={cn(
-                    "relative px-3 lg:px-2 py-2 text-[11px] lg:text-[13px] font-semibold tracking-wide transition-all duration-300 flex items-center group/navlink rounded-t-md",
+                    "relative px-2 lg:px-2.5 py-1.5 text-xs lg:text-sm font-semibold tracking-normal transition-all duration-200 flex items-center gap-1 group/navlink rounded-md",
                     location.pathname === link.path
-                      ? "text-primary bg-primary/5"
-                      : "text-slate-600 hover:text-primary hover:bg-primary/5"
+                      ? "text-primary bg-primary/10"
+                      : "text-slate-700 hover:text-primary hover:bg-slate-100/70"
                   )}
                 >
                   {link.isEmi ? (
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className="bg-amber-100 text-amber-800 text-[11px] font-black px-2 py-0.5 rounded-full border border-amber-300 shadow-sm animate-pulse">
+                    <span className="inline-flex items-center gap-1">
+                      <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded-full border border-amber-300 shadow-xs animate-pulse">
                         EMI
                       </span>
                       <span className="text-orange-500 font-bold hover:text-orange-600 transition-colors">
@@ -105,13 +105,12 @@ const Navbar = () => {
                   ) : (
                     <span>{link.name}</span>
                   )}
-                  {link.dropdown && <ChevronDown className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />}
+                  {link.dropdown && <ChevronDown className="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 group-hover:rotate-180 group-hover:text-primary" />}
                   
-                  {/* Animated Bottom Border */}
-                  <span className={cn(
-                    "absolute bottom-0 left-0 w-full h-[3px] bg-primary rounded-t-full transition-transform duration-300 origin-left",
-                    location.pathname === link.path ? "scale-x-100" : "scale-x-0 group-hover/navlink:scale-x-100"
-                  )}></span>
+                  {/* Active Indicator Line */}
+                  {location.pathname === link.path && (
+                    <span className="absolute bottom-0 left-1.5 right-1.5 h-[2px] bg-primary rounded-full"></span>
+                  )}
                 </Link>
 
                 {/* Dropdown */}
@@ -160,10 +159,10 @@ const Navbar = () => {
                 isPortalDropdownOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"
               )}>
                 <div className="py-1">
-                  <Link to="/admin/dashboard" onClick={() => setIsPortalDropdownOpen(false)} className="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
+                  <Link to="/portal/login?role=admin" onClick={() => setIsPortalDropdownOpen(false)} className="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
                     Admin / Staff Login
                   </Link>
-                  <Link to="/portal/dashboard" onClick={() => setIsPortalDropdownOpen(false)} className="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary border-t border-slate-100 transition-colors">
+                  <Link to="/portal/login?role=customer" onClick={() => setIsPortalDropdownOpen(false)} className="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-primary border-t border-slate-100 transition-colors">
                     Customer Login
                   </Link>
                 </div>

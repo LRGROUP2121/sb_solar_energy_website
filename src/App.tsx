@@ -31,6 +31,8 @@ import SystemSettings from './pages/admin/SystemSettings';
 import EnergyDashboard from './pages/energy/EnergyDashboard';
 import { FaWhatsapp } from 'react-icons/fa';
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 const App = () => {
   return (
     <Router>
@@ -55,27 +57,31 @@ const App = () => {
         <Route path="/portal/login" element={<ComplaintLogin />} />
         <Route path="/portal/register" element={<ComplaintRegister />} />
         
-        {/* Portal Routes with Sidebar Layout */}
-        <Route path="/portal" element={<PortalLayout />}>
-          <Route path="dashboard" element={<UserDashboard />} />
-          
-          <Route path="support" element={<TicketDashboard />} />
-          <Route path="support/new" element={<TicketForm />} />
-          <Route path="support/chat/:id" element={<TicketChat />} />
-          
-          <Route path="energy" element={<EnergyDashboard />} />
-          <Route path="complaints/new" element={<ComplaintForm />} />
-          <Route path="complaints/history" element={<ComplaintHistory />} />
-          <Route path="complaints/details/:id" element={<ComplaintDetails />} />
+        {/* Protected Customer Portal Routes */}
+        <Route element={<ProtectedRoute requiredRole="customer" />}>
+          <Route path="/portal" element={<PortalLayout />}>
+            <Route path="dashboard" element={<UserDashboard />} />
+            
+            <Route path="support" element={<TicketDashboard />} />
+            <Route path="support/new" element={<TicketForm />} />
+            <Route path="support/chat/:id" element={<TicketChat />} />
+            
+            <Route path="energy" element={<EnergyDashboard />} />
+            <Route path="complaints/new" element={<ComplaintForm />} />
+            <Route path="complaints/history" element={<ComplaintHistory />} />
+            <Route path="complaints/details/:id" element={<ComplaintDetails />} />
+          </Route>
         </Route>
 
-        {/* Hidden Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="whatsapp" element={<WhatsappAdmin />} />
-          <Route path="whatsapp/logs" element={<WhatsappLogs />} />
-          <Route path="users" element={<UserManagement />} />
-          <Route path="settings" element={<SystemSettings />} />
+        {/* Protected Admin Routes */}
+        <Route element={<ProtectedRoute requiredRole="admin" />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="whatsapp" element={<WhatsappAdmin />} />
+            <Route path="whatsapp/logs" element={<WhatsappLogs />} />
+            <Route path="users" element={<UserManagement />} />
+            <Route path="settings" element={<SystemSettings />} />
+          </Route>
         </Route>
       </Routes>
 

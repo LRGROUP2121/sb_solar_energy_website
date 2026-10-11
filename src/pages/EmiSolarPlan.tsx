@@ -174,7 +174,7 @@ const EmiSolarPlan: React.FC<EmiSolarPlanProps> = ({ onOpenQuoteModal }) => {
               Collateral-Free Solar Financing @ 7% Interest p.a.
             </span>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-1.5">
-              EMI <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Solar Plan</span>
+              Solar <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">EMI Plan</span>
             </h1>
             <p className="text-xs sm:text-sm md:text-base text-slate-200 font-normal max-w-2xl mx-auto leading-relaxed mb-3">
               Don&apos;t let upfront cost stop you. Your electricity bill savings will pay for your monthly solar EMI with full PM Surya Ghar Central Subsidy!
@@ -214,12 +214,12 @@ const EmiSolarPlan: React.FC<EmiSolarPlanProps> = ({ onOpenQuoteModal }) => {
                 <span className={`p-2.5 rounded-xl ${item.color}`}>
                   <item.icon className="w-5 h-5" />
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Verified</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Verified</span>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">{item.val}</div>
-                <div className="text-xs sm:text-sm font-semibold text-slate-700">{item.label}</div>
-                <div className="text-[11px] text-slate-400 mt-0.5">{item.desc}</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{item.val}</div>
+                <div className="text-sm font-bold text-slate-800 mt-1">{item.label}</div>
+                <div className="text-xs text-slate-500 mt-0.5 leading-relaxed">{item.desc}</div>
               </div>
             </div>
           ))}

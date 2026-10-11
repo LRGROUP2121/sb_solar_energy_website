@@ -7,10 +7,11 @@ import AboutUs from './pages/AboutUs';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Services from './pages/Services';
-import Solutions from './pages/Solutions';
 import Contact from './pages/Contact';
 import VendorRegistration from './pages/VendorRegistration';
 import SbSolarProtection from './pages/SbSolarProtection';
+import EmiSolarPlan from './pages/EmiSolarPlan';
+import TypographyTest from './pages/TypographyTest';
 
 // Portal & Admin Pages
 import ComplaintLogin from './pages/complaints/Login';
@@ -41,10 +42,12 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/solutions" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/vendor-registration" element={<VendorRegistration />} />
           <Route path="/sb-solar-protection" element={<SbSolarProtection />} />
+          <Route path="/emi-solar-plan" element={<EmiSolarPlan onOpenQuoteModal={() => window.dispatchEvent(new CustomEvent('open-solar-quote'))} />} />
+          <Route path="/typography-test" element={<TypographyTest />} />
           <Route path="*" element={<Home />} />
         </Route>
 

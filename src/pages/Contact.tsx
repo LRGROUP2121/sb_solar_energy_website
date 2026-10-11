@@ -78,25 +78,25 @@ const Contact = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Page Header */}
-      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-cover overflow-hidden z-10"
+      <section className="relative min-h-[200px] md:h-[300px] flex items-center justify-center bg-fixed bg-cover overflow-hidden z-10"
         style={{
           backgroundImage: "url('/contact_hero.png')",
           backgroundPosition: "center 70%" 
         }}
       >
-      <AnimatedBackground />
+        <AnimatedBackground />
         <div className="absolute inset-0 bg-slate-900/75 z-0"></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto py-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 md:mb-4 block">24/7 Assistance</span>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 md:mb-6">
-              Contact & <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Support</span>
+            <span className="text-primary font-bold tracking-widest uppercase text-xs mb-1.5 block">24/7 Assistance</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
+              Contact &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Support</span>
             </h1>
-            <p className="text-base md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-slate-200 font-normal max-w-2xl mx-auto leading-relaxed">
               Get in touch with our expert technical support team for inquiries, quotes, or immediate assistance.
             </p>
           </motion.div>

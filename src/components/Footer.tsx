@@ -81,13 +81,20 @@ const Footer = () => {
               {[
                 { name: 'Home', path: '/' },
                 { name: 'About Us', path: '/about' },
-                { name: 'Solutions', path: '/solutions' },
+                { name: 'EMI Solar Plan', path: '/emi-solar-plan' },
+                { name: 'Services & Solutions', path: '/services' },
+                { name: 'Typography Studio (Test)', path: '/typography-test' },
                 { name: 'Terms and Conditions', path: '/terms-and-conditions' },
                 { name: 'Privacy Policy', path: '/privacy-policy' },
               ].map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-slate-400 hover:text-primary transition-colors text-sm">
+                  <Link to={link.path} className="text-slate-400 hover:text-primary transition-colors text-sm flex items-center gap-1.5">
                     {link.name}
+                    {link.path === '/typography-test' && (
+                      <span className="text-[10px] bg-primary/20 text-primary font-bold px-1.5 py-0.2 rounded">
+                        NEW
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}

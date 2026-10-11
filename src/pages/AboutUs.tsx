@@ -14,22 +14,22 @@ const AboutUs = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
+      <section className="relative min-h-[200px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
         style={{ backgroundImage: "url('/about_hero.png')" }}
       >
-      <AnimatedBackground />
-        <div className="absolute inset-0 bg-slate-900/60 z-0"></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
+        <AnimatedBackground />
+        <div className="absolute inset-0 bg-slate-900/65 z-0"></div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto py-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 md:mb-4 block">Our Journey</span>
-            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight text-white mb-4 md:mb-6">
-              Pioneering a Brighter, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Greener Future</span>
+            <span className="text-primary font-bold tracking-widest uppercase text-xs mb-1.5 block">Our Journey</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-2 leading-tight">
+              Pioneering a Brighter, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Greener Future</span>
             </h1>
-            <p className="text-base md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-slate-200 font-normal max-w-2xl mx-auto leading-relaxed">
               Discover the mission, values, and relentless innovation driving SB Solar Energy to the forefront of renewable integration in India.
             </p>
           </motion.div>

@@ -2,24 +2,28 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import { MapPin, Phone, Mail, Clock, Search, Frown, ChevronDown, LayoutGrid, List, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../components/ui/Button';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { indiaStatesDistricts } from '../data/indiaStatesDistricts';
-
-const DUMMY_VENDORS = [
-  { name: 'SunPower Solutions', rating: 4.8, address: '123 Solar Park, Industrial Area', contact: '+91 9876543210', tags: ['On-Grid', 'Off-Grid'] },
-  { name: 'EcoGreen Energy', rating: 4.5, address: 'Phase 2, Techno Hub', contact: '+91 9876543211', tags: ['Residential', 'Commercial'] },
-  { name: 'BrightFuture Solar', rating: 4.9, address: 'Main Market Road', contact: '+91 9876543212', tags: ['Maintenance', 'Installation'] },
-];
+import { getStoredVendors, type Vendor } from '../data/vendorStorage';
 
 const Contact = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<'contact' | 'vendor'>(location.state?.activeTab || 'contact');
+  const [vendors, setVendors] = useState<Vendor[]>(() => getStoredVendors());
   const [selectedState, setSelectedState] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [showResults, setShowResults] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setVendors(getStoredVendors());
+    };
+    window.addEventListener('sb-vendors-updated', handleUpdate);
+    return () => window.removeEventListener('sb-vendors-updated', handleUpdate);
+  }, []);
 
   // Contact Form State
   const [contactData, setContactData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -64,15 +68,43 @@ const Contact = () => {
       setTimeout(() => setSubmitStatus('idle'), 5000);
     }
   };
-  const filteredVendors = DUMMY_VENDORS.filter(vendor => {
-    const q = searchQuery.toLowerCase();
-    return (
-      vendor.name.toLowerCase().includes(q) ||
-      vendor.address.toLowerCase().includes(q) ||
-      vendor.contact.toLowerCase().includes(q) ||
-      vendor.rating.toString().includes(q) ||
-      vendor.tags.some(tag => tag.toLowerCase().includes(q))
-    );
+
+  const filteredVendors = vendors.filter(vendor => {
+    // Only display Approved vendors in public directory
+    if (vendor.status && vendor.status !== 'Approved') return false;
+
+    // Filter by selected state if specified
+    if (selectedState) {
+      const matchState = 
+        (vendor.state && vendor.state.toLowerCase() === selectedState.toLowerCase()) ||
+        (vendor.address && vendor.address.toLowerCase().includes(selectedState.toLowerCase()));
+      if (!matchState) return false;
+    }
+
+    // Filter by selected district if specified
+    if (selectedDistrict) {
+      const matchDistrict = 
+        (vendor.district && vendor.district.toLowerCase() === selectedDistrict.toLowerCase()) ||
+        (vendor.address && vendor.address.toLowerCase().includes(selectedDistrict.toLowerCase()));
+      if (!matchDistrict) return false;
+    }
+
+    // Search query
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchQuery =
+        vendor.name.toLowerCase().includes(q) ||
+        vendor.address.toLowerCase().includes(q) ||
+        vendor.contact.toLowerCase().includes(q) ||
+        (vendor.contactPerson && vendor.contactPerson.toLowerCase().includes(q)) ||
+        (vendor.district && vendor.district.toLowerCase().includes(q)) ||
+        (vendor.state && vendor.state.toLowerCase().includes(q)) ||
+        (vendor.rating && vendor.rating.toString().includes(q)) ||
+        (vendor.tags && vendor.tags.some(tag => tag.toLowerCase().includes(q)));
+      if (!matchQuery) return false;
+    }
+
+    return true;
   });
 
   return (
@@ -401,7 +433,23 @@ const Contact = () => {
                   </div>
                 </div>
 
-                  {viewMode === 'grid' ? (
+                  {filteredVendors.length === 0 ? (
+                    <div className="py-16 px-4 text-center flex flex-col items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4 text-slate-400">
+                        <MapPin className="h-8 w-8" />
+                      </div>
+                      <h4 className="text-lg font-bold text-slate-800 mb-1">No vendors found in this area</h4>
+                      <p className="text-sm text-slate-500 max-w-md mb-6">
+                        We are continuously expanding our authorized partner network. Become the certified partner for {selectedDistrict || selectedState || 'your region'}!
+                      </p>
+                      <Link 
+                        to="/vendor-registration" 
+                        className="inline-flex items-center px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm shadow-md hover:bg-primary/90 transition-all hover:-translate-y-0.5"
+                      >
+                        Register as a Vendor / Dealer
+                      </Link>
+                    </div>
+                  ) : viewMode === 'grid' ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {filteredVendors.map((vendor, idx) => (
                         <div key={idx} className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-primary/40 transition-all hover:shadow-lg group">

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone, X } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Sun, Building2, Home as HomeIcon, Factory, ChevronLeft, ChevronRight, Award, TrendingUp, Phone, Settings, FileText, Star, Quote, Pointer, PiggyBank, CreditCard, Smartphone, X, HelpCircle, ChevronDown } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedBackground from '../components/AnimatedBackground';
@@ -39,7 +39,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 500000);
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
@@ -77,10 +77,10 @@ const HeroSlider = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-4xl text-center mx-auto"
             >
-              <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight mb-6 text-white leading-tight drop-shadow-lg uppercase">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-6 text-white leading-tight drop-shadow-lg uppercase">
                 {HERO_SLIDES[currentSlide].title}
               </h1>
-              <p className="text-sm md:text-lg lg:text-xl text-yellow-400 mb-10 font-light drop-shadow-md">
+              <p className="text-base sm:text-lg md:text-xl text-yellow-400 mb-8 md:mb-10 font-medium drop-shadow-md max-w-3xl mx-auto">
                 {HERO_SLIDES[currentSlide].subtitle}
               </p>
               <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
@@ -523,72 +523,18 @@ const TestimonialsSection = () => {
 
 const BrandsSection = () => {
   const brands = [
-    {
-      id: 'tata',
-      content: (
-        <div className="flex flex-col items-center justify-center space-y-1">
-          <span className="font-black text-xl md:text-2xl text-[#005587] tracking-wider leading-none">TATA POWER</span>
-          <span className="font-bold text-sm md:text-base text-[#F47920] tracking-widest leading-none">SOLAROOF</span>
-        </div>
-      )
-    },
-    {
-      id: 'adani',
-      content: (
-        <div className="flex flex-col items-center justify-center">
-          <span className="font-bold text-3xl md:text-4xl text-[#033E8C] tracking-tighter lowercase leading-none">adani</span>
-          <span className="font-semibold text-sm md:text-base text-slate-500 tracking-wide mt-1 leading-none">Power</span>
-        </div>
-      )
-    },
-    {
-      id: 'ina',
-      content: (
-        <div className="flex flex-col items-center justify-center">
-          <span className="font-black text-3xl md:text-4xl text-[#0089CF] tracking-tighter italic leading-none">INA <span className="text-sm md:text-base not-italic text-[#003876]">SOLAR</span></span>
-          <span className="font-bold text-[8px] md:text-[10px] text-white bg-[#F37021] px-1 mt-1 tracking-widest leading-none py-0.5">TOGETHER WE SHINE</span>
-        </div>
-      )
-    },
-    {
-      id: 'usha',
-      content: (
-        <div className="flex flex-col items-center justify-center border-2 border-[#D31245] p-1.5 md:p-2 bg-white">
-          <span className="font-black text-xl md:text-2xl text-[#D31245] tracking-widest leading-none">USHA</span>
-          <div className="w-full h-0.5 bg-[#D31245] my-1"></div>
-          <span className="font-bold text-xs md:text-sm text-[#D31245] tracking-widest leading-none">SHRIRAM</span>
-        </div>
-      )
-    },
-    {
-      id: 'eastman',
-      content: (
-        <div className="flex items-center justify-center gap-2">
-          <div className="relative">
-             <div className="w-8 h-8 md:w-10 md:h-10 border-[3px] border-[#FDB913] rounded-full"></div>
-             <div className="absolute inset-0 m-auto w-3 h-3 md:w-4 md:h-4 bg-[#FDB913] rounded-full"></div>
-          </div>
-          <div className="flex flex-col justify-center items-start">
-             <span className="font-black text-2xl md:text-3xl text-[#1E3A8A] italic leading-none">Eastman</span>
-             <span className="font-bold text-[7px] md:text-[9px] text-[#1E3A8A] uppercase tracking-tighter leading-none mt-1">Energy. Unlimited.</span>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'xwatt',
-      content: (
-        <div className="flex flex-col items-center justify-center">
-          <div className="flex items-baseline">
-            <span className="font-black text-4xl md:text-5xl text-[#E3000F] leading-none">X</span>
-            <span className="font-medium text-2xl md:text-3xl text-[#53565A] leading-none -ml-1">wätt</span>
-          </div>
-          <span className="font-bold text-[9px] md:text-[11px] text-[#53565A] mt-1 tracking-wider uppercase leading-none">
-            Solar Ongrid <span className="text-[#E3000F]">Inverter</span>
-          </span>
-        </div>
-      )
-    },
+    { id: 'tata', src: '/brand_images/Tata_Solar.jpeg', alt: 'Tata Solar' },
+    { id: 'adani', src: '/brand_images/Adani.jpeg', alt: 'Adani Solar' },
+    { id: 'ina', src: '/brand_images/INA_Solar.jpeg', alt: 'INA Solar' },
+    { id: 'usha', src: '/brand_images/Usha.jpeg', alt: 'Usha' },
+    { id: 'eastman', src: '/brand_images/Eastman.jpeg', alt: 'Eastman' },
+    { id: 'xwatt', src: '/brand_images/XWatt.jpeg', alt: 'XWatt' },
+    { id: 'luminous', src: '/brand_images/Luminious.jpeg', alt: 'Luminous' },
+    { id: 'polycab', src: '/brand_images/Polycab.jpeg', alt: 'Polycab' },
+    { id: 'waaree', src: '/brand_images/Waaree.jpeg', alt: 'Waaree' },
+    { id: 'vsole', src: '/brand_images/Vsole.jpeg', alt: 'Vsole' },
+    // { id: 'solar_protection', src: '/brand_images/Solar_Protection.jpeg', alt: 'Solar Protection' },
+    // { id: 'sbsolar', src: '/brand_images/sb_solar.jpeg', alt: 'SB Solar' },
   ];
 
   return (
@@ -612,12 +558,12 @@ const BrandsSection = () => {
               ease: "linear",
             },
           }}
-          className="flex flex-nowrap gap-3 sm:gap-8 md:gap-16 items-center"
+          className="flex flex-nowrap gap-3 sm:gap-4 items-center"
         >
           {/* Render 3 sets of the brands to ensure infinite loop seamlessly */}
           {[...brands, ...brands, ...brands].map((brand, i) => (
-            <div key={`${brand.id}-${i}`} className="flex-shrink-0 transition-all duration-300 transform hover:scale-125 hover:-translate-y-2 hover:drop-shadow-2xl px-2 md:px-4 cursor-pointer relative z-10 hover:z-20">
-              {brand.content}
+            <div key={`${brand.id}-${i}`} className="flex-shrink-0 transition-all duration-300 transform hover:scale-125 hover:-translate-y-2 hover:drop-shadow-2xl px-2 md:px-4 cursor-pointer relative z-10 hover:z-20 bg-white rounded-xl shadow-sm hover:shadow-md p-4">
+              <img src={brand.src} alt={brand.alt} className="h-16 md:h-24 w-auto object-contain mix-blend-multiply" />
             </div>
           ))}
         </motion.div>
@@ -681,8 +627,9 @@ const CTASection = () => {
   );
 };
 
-const GoodZeroNotification = () => {
+const SBSolarProtectionNotification = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const navigate = useNavigate();
 
   if (!isVisible) return null;
 
@@ -698,70 +645,84 @@ const GoodZeroNotification = () => {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          className="relative w-full max-w-5xl bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] rounded-2xl shadow-2xl border border-blue-100 p-6 sm:p-8 lg:p-12 max-h-[90vh] overflow-y-auto"
+          className="relative w-full max-w-6xl bg-gradient-to-r from-indigo-50 via-[#eef2ff] to-[#f0f9ff] rounded-2xl shadow-2xl border border-blue-100 p-6 sm:p-8 lg:p-12 max-h-[90vh] overflow-y-auto md:overflow-hidden"
         >
           <button 
             onClick={() => setIsVisible(false)}
-            className="absolute top-4 right-4 p-2 bg-white/50 hover:bg-white rounded-full transition-colors text-slate-500 hover:text-slate-800 z-50 shadow-sm"
+            className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white rounded-full transition-colors text-slate-500 hover:text-slate-800 z-50 shadow-sm"
           >
             <X className="w-5 h-5" />
           </button>
           
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10 mt-2 sm:mt-0">
+          <div className="flex flex-col lg:flex-row items-center lg:items-stretch justify-between gap-4 md:gap-0 mt-6 sm:mt-0">
             
             {/* Left Content */}
-            <div className="lg:w-1/3 space-y-6">
+            <div className="lg:w-1/3 space-y-4 text-center lg:text-left flex flex-col justify-center">
               <div>
                 <p className="text-slate-600 font-medium text-lg mb-1">Introducing</p>
-                <h2 className="text-4xl lg:text-5xl font-black text-[#1e3a8a] tracking-tight">
-                  GoodZero<sup className="text-xl ml-1 font-bold">™</sup>
+                <h2 className="text-3xl lg:text-4xl font-black text-[#1e3a8a] tracking-tight leading-tight">
+                  SB SOLAR PROTECTION<sup className="text-xl ml-1 font-bold">™</sup>
                 </h2>
               </div>
               
-              <p className="text-slate-800 font-bold text-xl leading-snug max-w-sm">
-                India's only Guaranteed Solar Savings Plan
+              <p className="text-slate-800 font-bold text-xl leading-snug mx-auto lg:mx-0 max-w-sm">
+                Guaranteed Solar Savings & Protection Plan
               </p>
               
-              <Button className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-xl w-full sm:w-auto">
-                Know More about GoodZero
-              </Button>
+              <div className="pt-2">
+                <Button 
+                  onClick={() => {
+                    setIsVisible(false);
+                    navigate('/sb-solar-protection');
+                  }}
+                  className="bg-gradient-to-r from-[#0d1b4a] to-[#1a2f6c] text-white hover:from-[#081236] hover:to-[#122355] shadow-xl hover:shadow-2xl transition-all duration-300 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl w-full sm:w-auto"
+                >
+                  Know More
+                </Button>
+              </div>
             </div>
 
             {/* Middle Features Grid */}
-            <div className="lg:w-2/5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 sm:gap-y-10">
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                  <PiggyBank className="w-5 h-5 text-blue-600" />
-                </div>
-                <p className="text-slate-700 font-medium leading-tight">Money-back promise at Rs. 8/unit</p>
+            <div className="lg:flex-1 flex flex-col justify-center space-y-6 w-full">
+              <div className="space-y-2 bg-green-50 p-4 sm:p-5 rounded-xl border border-green-200 shadow-sm text-center lg:text-left">
+                <p className="text-[#10b981] font-bold text-lg leading-tight">25 Years of Trusted Solar Performance</p>
+                <p className="text-slate-600 font-medium text-sm leading-relaxed">Guaranteed Generation • Savings Protection • Service Support</p>
               </div>
-              
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                  <CreditCard className="w-5 h-5 text-blue-600" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div className="flex items-center space-x-4 bg-white/60 p-3 rounded-xl border border-blue-50/50 shadow-sm hover:bg-white transition-colors">
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-blue-100 flex items-center justify-center shadow-inner">
+                    <PiggyBank className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <p className="text-slate-700 font-semibold text-sm leading-tight">Money-back promise at Rs. 8/unit</p>
                 </div>
-                <p className="text-slate-700 font-medium leading-tight">Regular Proactive maintenance visits</p>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                  <Settings className="w-5 h-5 text-blue-600" />
+                
+                <div className="flex items-center space-x-4 bg-white/60 p-3 rounded-xl border border-blue-50/50 shadow-sm hover:bg-white transition-colors">
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-blue-100 flex items-center justify-center shadow-inner">
+                    <CreditCard className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <p className="text-slate-700 font-semibold text-sm leading-tight">Regular Proactive maintenance visits</p>
                 </div>
-                <p className="text-slate-700 font-medium leading-tight">₹0 Repair & Replacement Cost</p>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100/80 flex items-center justify-center shadow-sm">
-                  <Smartphone className="w-5 h-5 text-blue-600" />
+                
+                <div className="flex items-center space-x-4 bg-white/60 p-3 rounded-xl border border-blue-50/50 shadow-sm hover:bg-white transition-colors">
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-blue-100 flex items-center justify-center shadow-inner">
+                    <Settings className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <p className="text-slate-700 font-semibold text-sm leading-tight">₹0 Repair & Replacement Cost</p>
                 </div>
-                <p className="text-slate-700 font-medium leading-tight">App to track real-time power generation</p>
+                
+                <div className="flex items-center space-x-4 bg-white/60 p-3 rounded-xl border border-blue-50/50 shadow-sm hover:bg-white transition-colors">
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-blue-100 flex items-center justify-center shadow-inner">
+                    <Smartphone className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <p className="text-slate-700 font-semibold text-sm leading-tight">App to track real-time power</p>
+                </div>
               </div>
             </div>
 
             {/* Right Image */}
-            <div className="lg:w-1/4 flex justify-center lg:justify-end relative">
+            <div className="lg:w-1/4 flex justify-center lg:justify-end relative items-center w-full mt-4 lg:mt-0">
               <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full scale-150"></div>
-              <img src="/shield_guarantee_3d.png" alt="GoodZero Guarantee" className="w-32 sm:w-48 lg:w-64 object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
+              <img src="/brand_images/Solar_Protection.png" alt="SB Solar Protection Guarantee" className="w-40 sm:w-48 lg:w-full max-w-[250px] object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
             </div>
 
           </div>
@@ -771,17 +732,142 @@ const GoodZeroNotification = () => {
   );
 };
 
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const navigate = useNavigate();
+
+  const faqs = [
+    {
+      q: "PM Surya Ghar Muft Bijli Yojana me kitni subsidy milti hai?",
+      a: "Central Government PM Surya Ghar scheme ke tehat 1 kW solar rooftop system par ₹30,000, 2 kW system par ₹60,000 aur 3 kW ya usse upar ke systems par flat ₹78,000 direct bank transfer subsidy provide karti hai. SB Solar Energy aapka poora DISCOM net metering aur portal paperwork handle karti hai."
+    },
+    {
+      q: "Kya rooftop solar lagwane ke liye 100% EMI / loan option available hai?",
+      a: "Haan! SB Solar Energy nationalized banks aur certified NBFCs ke sath milkar 6% se 7% starting interest rate par collateral-free solar financing provide karti hai. Isme zero down-payment option bhi available hai, jaha aapki electricity bill ki bachat se hi monthly EMI cover ho jaati hai."
+    },
+    {
+      q: "Solar system lagane ke baad mera bijli ka bill kitna kam hoga?",
+      a: "Ek standard on-grid solar system aapke bijli ke bill ko upar se 80% se 90% tak reduce kar deta hai. Din ke time jo extra bijli banti hai, woh bi-directional net meter ke through DISCOM grid ko feed hoti hai, jiska credit aapke monthly bill me adjust hota hai."
+    },
+    {
+      q: "Solar panels ki warranty aur service support kya hai?",
+      a: "Hum Tier-1 Monocrystalline Bifacial solar modules use karte hain jin par 25-30 saal ki 80%+ linear performance warranty aur inverters par 5-10 saal ki replacement warranty milti hai. Saath hi, SB Solar Protection ke tehat regular maintenance aur 24x7 IoT app monitoring provide ki jaati hai."
+    },
+    {
+      q: "Installation me kitna time lagta hai?",
+      a: "Site survey aur engineering structural audit ke baad physical rooftop installation 2 se 3 din me poori ho jaati hai. DISCOM approval aur net meter inspection me aamtaur par 7 se 15 din ka samay lagta hai, jisme hamari technical team end-to-end assist karti hai."
+    },
+    {
+      q: "Kya cloudy ya barish ke dino me bhi solar kaam karta hai?",
+      a: "Haan, modern Tier-1 mono PERC panels diffused sunlight (badal wale din) me bhi 25% se 40% electricity generate karte hain. Raat ke time aap regular DISCOM grid supply use karte hain jo din ki surplus generation se balance ho jaati hai."
+    }
+  ];
+
+  return (
+    <section className="py-14 sm:py-20 bg-slate-50 relative z-10 overflow-hidden border-t border-slate-200/80">
+      <AnimatedBackground />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <span className="text-primary font-bold text-xs uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+            <HelpCircle className="w-3.5 h-3.5" /> Frequently Asked Questions
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Frequently Asked <span className="text-primary">Questions</span>
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base mt-2">
+            Rooftop solar, PM Surya Ghar central subsidy aur EMI plans se jude sabhi aam sawalo ke jawab yaha payein.
+          </p>
+        </div>
+
+        {/* FAQ Accordion List */}
+        <div className="space-y-3.5">
+          {faqs.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div
+                key={idx}
+                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                  isOpen 
+                    ? 'border-primary/50 shadow-md ring-2 ring-primary/5' 
+                    : 'border-slate-200/80 hover:border-slate-300 shadow-xs'
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : idx)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
+                >
+                  <span className={`text-sm sm:text-base font-bold transition-colors ${
+                    isOpen ? 'text-primary' : 'text-slate-900'
+                  }`}>
+                    {faq.q}
+                  </span>
+                  <div className={`p-1.5 rounded-xl transition-all duration-200 shrink-0 ${
+                    isOpen ? 'bg-primary text-white rotate-180' : 'bg-slate-100 text-slate-500'
+                  }`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </button>
+
+                {isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0"
+                  >
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal border-t border-slate-100 pt-3">
+                      {faq.a}
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Helper Bar */}
+        <div className="mt-8 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg border border-slate-700">
+          <div>
+            <div className="text-sm font-bold text-white">Have more questions about your rooftop?</div>
+            <div className="text-xs text-slate-300 mt-0.5">Our solar technical consultants are ready to assist with free rooftop feasibility assessment.</div>
+          </div>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={() => navigate('/emi-solar-plan')}
+              className="bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm"
+            >
+              Calculate EMI
+            </button>
+            <button
+              onClick={() => navigate('/contact')}
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+            >
+              Contact Support
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen relative">
       <HeroSlider />
-      <GoodZeroNotification />
+      <SBSolarProtectionNotification />
       <FeaturesSection />
       <ProductsSection />
       <IndustrySection />
       <WhyChooseUsSection />
       <TestimonialsSection />
       <BrandsSection />
+      <FAQSection />
       <CTASection />
     </div>
   );

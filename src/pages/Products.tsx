@@ -20,22 +20,22 @@ const Products = () => {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       {/* Hero Section */}
-      <section className="relative min-h-[400px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
+      <section className="relative min-h-[200px] md:h-[300px] flex items-center justify-center bg-fixed bg-center bg-cover overflow-hidden z-10"
         style={{ backgroundImage: "url('/products_hero.png')" }}
       >
-      <AnimatedBackground />
-        <div className="absolute inset-0 bg-slate-900/70 z-0"></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-12 md:mt-16">
+        <AnimatedBackground />
+        <div className="absolute inset-0 bg-slate-900/65 z-0"></div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto py-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 md:mb-4 block">Premium Catalog</span>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 md:mb-6">
+            <span className="text-primary font-bold tracking-widest uppercase text-xs mb-1.5 block">Premium Catalog</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-2 leading-tight">
               Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Products</span>
             </h1>
-            <p className="text-base md:text-xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-slate-200 font-normal max-w-2xl mx-auto leading-relaxed">
               Explore our comprehensive range of high-efficiency solar modules, intelligent inverters, and robust energy storage systems designed for a sustainable future.
             </p>
           </motion.div>
@@ -43,9 +43,9 @@ const Products = () => {
       </section>
 
       {/* Benefits Bar */}
-      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-4 w-full overflow-hidden">
+      <section className="relative z-30 -mt-10 max-w-5xl mx-auto px-6 md:px-4 w-full overflow-hidden">
       <AnimatedBackground />
-        <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 border border-slate-100 flex flex-wrap justify-center md:justify-between items-center gap-6">
+        <div className="bg-white rounded-xl shadow-lg shadow-slate-200/50 py-1 md:py-6 px-4 md:px-6 border border-slate-100 flex flex-wrap justify-center md:justify-between items-center gap-4 md:gap-6">
           <div className="flex items-center space-x-3">
             <Zap className="h-6 w-6 text-amber-500" />
             <span className="font-semibold text-slate-700">High Efficiency Ratings</span>
